@@ -26,7 +26,7 @@
     <div data-role="page" id="augmentedreality">  
         	<div data-role="header" class="hdr demo" data-position="fixed" data-id="header">
 	    <a class="btnBack" href="./index.html"
-	    	data-transition="slide" >
+	    	data-transition="slide" data-direction="reverse" >
 	    	<i class="icon-chevron-left"></i>
 	    </a>
 	    <h1><span class="bridge-font-color">Bridge</span><span class="it-font-color">It</span></h1>
@@ -35,6 +35,14 @@
         <div data-role="content">
             <div onfocus="setTimeout(function(){google.maps.event.trigger(map, 'resize')},1000);" >
     <script type="text/javascript">
+      $(document).bind('pagechange', function() {
+        if ("augmentedreality" === $.mobile.activePage.attr('id')) {
+            if (null == map)  {
+                initialize();
+            }
+            setTimeout(function(){google.maps.event.trigger(map, 'resize')},1000);
+        }
+      });
       var map = null;
       var marker = null;
       var counter = 1;

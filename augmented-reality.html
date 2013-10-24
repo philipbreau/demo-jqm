@@ -5,6 +5,14 @@ title: Augmented Reality
 ---
 <div onfocus="setTimeout(function(){google.maps.event.trigger(map, 'resize')},1000);" >
     <script type="text/javascript">
+      $(document).bind('pagechange', function() {
+        if ("augmentedreality" === $.mobile.activePage.attr('id')) {
+            if (null == map)  {
+                initialize();
+            }
+            setTimeout(function(){google.maps.event.trigger(map, 'resize')},1000);
+        }
+      });
       var map = null;
       var marker = null;
       var counter = 1;
