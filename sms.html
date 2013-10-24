@@ -1,0 +1,39 @@
+---
+id: sms
+layout: demo
+title: SMS
+---
+<div>
+    <h2>Native SMS</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">Send an SMS with a simple line of JavaScript...</p></div>
+        <div class="row">
+{% highlight javascript %}
+var callback = function(event){...};
+function launchSms(){
+    bridgeit.sms'myId', 
+        callback);  
+}
+{% endhighlight %}
+{% highlight html %}
+<a type="button"
+    onclick="launchSms();">
+    Send an SMS</a>
+{% endhighlight %}
+        </div>
+    </fieldset>
+    
+    <a id="smsBtn" type="button" class="btn"
+        onclick="bridgeit.sms('smsBtn',handleSMS, {postURL: window.serviceHub + '/sms'});">Take a Photo</a>
+        
+    <fieldset>
+        <div class="row"></div>
+    </fieldset>
+    <fieldset id="images">
+    </fieldset>
+    <script type="text/javascript">
+    function handleSMS(event)  {
+        alert(event);
+    }
+    </script>
+</div>

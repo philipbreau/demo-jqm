@@ -1,0 +1,57 @@
+---
+id: microphone
+layout: demo
+title: Microphone
+---
+<div>
+   <h2>Native Audio Recording</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">Access the native audio recording features with a simple line of JavaScript...</p></div>
+        <div class="row">
+{% highlight javascript %}
+var options = {postURL: myPostURL};
+var callback = function(event){...};
+function launchMicrophone(){
+    bridgeit.microphone('myId', 
+        callback, options);  
+}
+{% endhighlight %}
+{% highlight html %}
+<a type="button"
+    onclick="launchMicrophone();">
+    Record Audio</a>
+{% endhighlight %}
+        </div>
+    </fieldset>
+    
+    <a id="micBtn" type="button" class="btn"
+        onclick="bridgeit.microphone('micBtn','handleAudio', {postURL: window.serviceHub + '/audio-upload'});">Record Audio</a>
+        
+    <fieldset>
+        <div class="row"></div>
+    </fieldset>
+    <fieldset id="recordings">
+    </fieldset>
+    <script type="text/javascript">
+    function handleAudio(event)  {
+        var text = event.value;
+        if (event.response)  {
+            var recordings = JSON.parse(event.response);
+            var elem = document.getElementById("recordings");
+            for( var i = 0 ; i < recordings.length ; i++ ){
+                var row1 = document.createElement('div');
+                row1.setAttribute('class','row');
+                row1.innerHTML = "Audio recorded on " + new Date();
+                elem.appendChild(row1);
+                var row2 = document.createElement('div');
+                row2.setAttribute('class','row');
+                row2.innerHTML = "<audio src='" + window.serviceHub + "/" + recordings[i] + "' controls='controls' preload='auto' type='audio/mp3'/>";
+                elem.appendChild(row2);
+            }
+            
+        }
+    }
+    </script>
+
+</div>
+

@@ -1,0 +1,78 @@
+---
+id: camera
+layout: demo
+title: Camera
+---
+<div>
+    <h2>Native Camera Access</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">Access the native device camera features with a simple line of JavaScript...</p></div>
+        <div class="row">
+{% highlight javascript %}
+var options = {postURL: myPostURL};
+var callback = function(event){...};
+function launchCamera(){
+    bridgeit.camera('myId', 
+        callback, options);  
+}
+{% endhighlight %}
+{% highlight html %}
+<a id="cameraBtn" type="button"
+    onclick="launchCamera();">
+    Take a Photo</a>
+{% endhighlight %}
+        </div>
+    </fieldset>
+    
+    <a id="cameraBtn" type="button" class="btn"
+        onclick="bridgeit.camera('cameraBtn','handleCam', {postURL:window.serviceHub + '/camera-upload'});">Take a Photo</a>
+        
+    <fieldset id="currentPhoto">
+        <div class="row">
+            <img id="photoThumbnail"/>
+            <span class="ellipsis" id="currentPhotoDesc" ></span>
+        </div>
+    </fieldset>
+    <fieldset id="images">
+    </fieldset>
+    <script type="text/javascript">
+    function handleCam(event)  {
+        var text = event.value;
+        if (event.preview)  {
+            document.getElementById("photoThumbnail").setAttribute("src", event.preview);
+            document.getElementById("currentPhotoDesc").innerHTML = "Last photo taken at " + new Date();
+        }
+        if (event.response)  {
+            var photos = JSON.parse(event.response);
+            for( var i = photos.length ; i > 0 ; i-- ){
+                var photoDivId = 'photoDiv'+(i-1);
+                var photoDiv = document.getElementById(photoDivId);
+                
+                if( !photoDiv ){
+                    var row = document.createElement('div');
+                    row.id = photoDivId;
+                    row.setAttribute('class','row');
+                    var elem = document.getElementById("images");
+                    elem.insertBefore(row,elem.firstChild);
+                    row.innerHTML = "<a id='photoLink" + i + "' onclick=\"loadPhoto(" + i + ",'" + photos[i-1] + "');\">Load Photo " + i + "</a>";
+                }
+                
+            }
+            
+        }
+    }
+    function loadPhoto(id, url){
+        var photoLink = document.getElementById('photoLink'+id);
+        if( photoLink ){
+            var parent = photoLink.parentNode;
+            parent.removeChild(photoLink);
+            var img = document.createElement('img');
+            img.id = 'photo' + id;
+            img.setAttribute('src',  window.serviceHub + "/" + url);
+            parent.appendChild(img);
+        }
+    }
+
+    </script>
+</div>
+

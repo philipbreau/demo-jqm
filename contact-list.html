@@ -1,0 +1,46 @@
+---
+id: contactlist
+layout: demo
+title: Contact List
+---
+<div>
+    <h2>Native Contact List Access</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">Access the device contact list with a simple line of JavaScript...</p></div>
+        <div class="row">
+{% highlight javascript %}
+var callback = function(event){...};
+function launchContactList(){
+    bridgeit.fetchContact('myId', 
+        callback);  
+}
+{% endhighlight %}
+{% highlight html %}
+<a type="button"
+    onclick="launchContactList();">
+    Fetch a Contact</a>
+{% endhighlight %}
+        </div>
+    </fieldset>
+    
+    <a id="contactListBtn" type="button" class="btn"
+        onclick="bridgeit.fetchContact('contactListBtn','handleContact');">Fetch a Contact</a>
+        
+    <div id="contacts" class="panel">
+    
+    </div>
+    <script type="text/javascript">
+    function handleContact(event)  {
+        var text = unescape(event.value);
+        var record = bridgeit.url2Object(text);
+        var elem = document.getElementById("contacts");
+        var fieldset = document.createElement('fieldset');
+        var recordHTML = '';
+        for (var key in record)  {
+            recordHTML += "<div class='row'><span class='ellipsis'><strong>" + key + ": </strong>" + record[key] + "</span></div>";  
+        }
+        fieldset.innerHTML = recordHTML;
+        elem.insertBefore(fieldset, elem.firstChild);
+    }
+    </script>
+</div>

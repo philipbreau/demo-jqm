@@ -1,0 +1,69 @@
+---
+id: cloudpush
+layout: demo
+title: Cloud Push
+---
+<div>
+    <h2>Device Notifications</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">Cloud notifications with ICEpush...</p></div>
+        <div class="row">
+{% highlight javascript %}
+ice.push.notify( 'myPushGroup', {
+  subject: 'subject', 
+  detail: 'detail'});
+{% endhighlight %}
+=======
+        </div>
+    </fieldset>
+
+    <a id="regBtn" type="button" class="btn"
+        onclick="bridgeit.register('_reg');">Enable Cloud Push</a>
+
+    <a id="pushBtn" type="button" class="btn"
+        onclick="delayedPush();">Push in 10 seconds ...</a>
+
+    <fieldset>
+        <div class="row"></div>
+    </fieldset>
+    <fieldset id="notifications">
+    </fieldset>
+    <script type="text/javascript">
+
+    function handleNotification(event)  {
+        alert(event);
+    }
+
+    function handlePush()  {
+        var now = new Date();
+        var outDiv = document.getElementById("notifications");
+        outDiv.innerHTML = 
+            "<b>You have been notified:</b> " + 
+            now.getHours() + ":" + 
+            ("00" + now.getMinutes()).slice(-2) + ":" +
+            ("00" + now.getSeconds()).slice(-2);
+        window.setTimeout(function() {
+            outDiv.innerHTML = "";
+        }, 5000)
+            
+    }
+
+    bridgeit.usePushService("http://labs.icesoft.com/push");
+    //change to a uniquely generated pushID once initial testing is complete
+    bridgeit.addPushListener('bridgeit', 'handlePush');
+
+    window.addEventListener("pageShow", function () {
+        ice.push.connection.resumeConnection();
+    }, false);
+
+    window.addEventListener("pagehide", function () {
+        ice.push.connection.pauseConnection();
+    }, false);
+
+    function delayedPush()  {
+        bridgeit.push( 'bridgeit',
+            {subject:'BridgeIt Cloud Push',
+            detail:'You have been notified.', delay:10000} );
+    }
+    </script>
+</div>

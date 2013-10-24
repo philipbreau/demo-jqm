@@ -1,0 +1,59 @@
+---
+id: camcorder
+layout: demo
+title: Camcorder
+---
+<div>
+    <h2>Native Video Recording</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">Access the native video recording features with a simple line of JavaScript...</p></div>
+        <div class="row">
+{% highlight javascript %}
+var options = {postURL: myPostURL};
+var callback = function(event){...};
+function launchVideoCamera(){
+    bridgeit.camcorder('myId', 
+        callback, options);  
+}
+{% endhighlight %}
+{% highlight html %}
+<a type="button"
+    onclick="launchVideoCamera();">
+    Record a video</a>
+{% endhighlight %}
+        </div>
+    </fieldset>
+    
+    <a id="camcorderBtn" type="button" class="btn"
+        onclick="bridgeit.camcorder('camcorderBtn','handleVideo', {postURL: window.serviceHub + '/video-upload'});">Record a Video</a>
+        
+    <fieldset id="videoThumbnailField" style="display:none">
+        <div class="row">
+            <img id="videoThumbnail"/>
+            <span class="ellipsis" id="currentVideoDesc" ></span>
+        </div>
+    </fieldset>
+    
+    <fieldset id="videos">
+    </fieldset>
+    <script type="text/javascript">
+    function handleVideo(event)  {
+        var text = event.value;
+        if (event.preview)  {
+            document.getElementById("videoThumbnailField").style.display = "block";
+            document.getElementById("currentVideoDesc").innerHTML = "Last video taken at " + new Date();
+            document.getElementById("videoThumbnail").setAttribute("src", event.preview);
+        }
+        if (event.response)  {
+            var videos = JSON.parse(event.response);
+            var elem = document.getElementById("videos");
+            for( var i = 0 ; i < videos.length ; i++ ){
+                var row = document.createElement('div');
+                row.setAttribute('class','row');
+                row.innerHTML = "<video src='" + window.serviceHub + "/" + videos[i] + "' controls='controls' preload='auto' type='video/mp4' webkit-playsinline='yes'/>";
+                elem.appendChild(row);
+            }
+        }
+    }
+    </script>
+</div>
