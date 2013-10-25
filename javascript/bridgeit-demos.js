@@ -56,3 +56,9 @@ function ajaxGet(url,cb){
     request.open('GET', url);
     request.send();
 }
+function simpleTime()  {
+    var now = new Date();
+    return now.getHours() + ":" + 
+    ("00" + now.getMinutes()).slice(-2) + ":" +
+    ("00" + now.getSeconds()).slice(-2);
+}

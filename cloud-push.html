@@ -38,10 +38,7 @@ ice.push.notify( 'myPushGroup', {
         var now = new Date();
         var outDiv = document.getElementById("notifications");
         outDiv.innerHTML = 
-            "<b>You have been notified:</b> " + 
-            now.getHours() + ":" + 
-            ("00" + now.getMinutes()).slice(-2) + ":" +
-            ("00" + now.getSeconds()).slice(-2);
+            "<b>You have been notified:</b> " + simpleTime();
         window.setTimeout(function() {
             outDiv.innerHTML = "";
         }, 5000)
