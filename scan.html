@@ -9,16 +9,7 @@ title: Scan
         <div class="row"><p class="normalText">Scan a QR Code with a simple line of JavaScript...</p></div>
         <div class="row">
 {% highlight javascript %}
-var callback = function(event){...};
-function launchScan(){
-    bridgeit.scan('myId', 
-        callback);  
-}
-{% endhighlight %}
-{% highlight html %}
-<a type="button"
-    onclick="launchScan();">
-    Scan</a>
+bridgeit.scan( 'myId', callback);
 {% endhighlight %}
         </div>
     </fieldset>

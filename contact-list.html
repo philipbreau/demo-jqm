@@ -9,16 +9,7 @@ title: Contact List
         <div class="row"><p class="normalText">Access the device contact list with a simple line of JavaScript...</p></div>
         <div class="row">
 {% highlight javascript %}
-var callback = function(event){...};
-function launchContactList(){
-    bridgeit.fetchContact('myId', 
-        callback);  
-}
-{% endhighlight %}
-{% highlight html %}
-<a type="button"
-    onclick="launchContactList();">
-    Fetch a Contact</a>
+bridgeit.fetchContact( 'myId', callback); 
 {% endhighlight %}
         </div>
     </fieldset>

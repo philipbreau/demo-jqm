@@ -9,17 +9,7 @@ title: Camera
         <div class="row"><p class="normalText">Access the native device camera features with a simple line of JavaScript...</p></div>
         <div class="row">
 {% highlight javascript %}
-var options = {postURL: myPostURL};
-var callback = function(event){...};
-function launchCamera(){
-    bridgeit.camera('myId', 
-        callback, options);  
-}
-{% endhighlight %}
-{% highlight html %}
-<a id="cameraBtn" type="button"
-    onclick="launchCamera();">
-    Take a Photo</a>
+bridgeit.camera( 'myId', callback, {postURL: 'myURL'});
 {% endhighlight %}
         </div>
     </fieldset>
