@@ -46,31 +46,36 @@ h2{
    color: red;
 }
 #getBridgeItPopup{
-    width: 80%;
+    width: 60%;
     height: auto;
-    min-height: 300px;
+    min-height: 100px;
     position: absolute;
-    bottom: 0;
-    border: 20px solid #EEE;
+    border: 20px solid #FCAC93;
     border-radius: 10px;
     padding: 20px;
-    text-align:center;
+    text-align: center;
     margin: 0 auto;
     box-sizing: border-box;
-    display: block;
-    right: 0;
-    background-color: rgb(245, 222, 180);
+    top: 50px;
+    background-color: #F8F8F8;
     -webkit-transition: opacity 5s ease-in-out;
     -moz-transition: opacity 5s ease-in-out;
     -o-transition: opacity 5s ease-in-out;
     transition: opacity 5s ease-in-out;
+    z-index: 999;
 }
 #getBridgeItPopup p{ font-size: 20px;}
 #closeGetBridgePopup{
     position: absolute;
     right: 5px;
     top: 5px;
-    color: white;
+    color: #686868;
+}
+#closeGetBridgePopup:hover, #appStoreLink{
+    color: #F85926;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0px 2px 9px #DDD;
 }
 body .hdr{
     background: #FFF;
@@ -351,8 +356,8 @@ fieldset.desc{
 }
 .ui-btn-active:visited, .ui-btn-active:hover, .ui-btn-active a.ui-link-inherit,
 .btnBack:active, .btnBack:focus {
-	color: #2F3E46;
-	text-shadow: 0px 0px 12px rgba(221, 87, 52, 0.5);
+    color: #2F3E46;
+    text-shadow: 0px 0px 12px rgba(221, 87, 52, 0.5);
 }
 .ui-page-header-fixed {
     padding-top: 37px;
