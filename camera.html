@@ -51,6 +51,7 @@ bridgeit.camera( 'myId', callback, {postURL: 'myURL'});
         }
         if (event.response)  {
             var photo = event.response;
+            console.log('response: ' + photo);
             var row = document.createElement('div');
             row.setAttribute('class','row');
             var elem = document.getElementById('images');
