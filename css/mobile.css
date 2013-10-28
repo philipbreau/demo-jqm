@@ -46,7 +46,7 @@ h2{
    color: red;
 }
 #getBridgeItPopup{
-    width: 60%;
+    width: 100%;
     height: auto;
     min-height: 100px;
     position: absolute;
@@ -55,6 +55,7 @@ h2{
     padding: 20px;
     text-align: center;
     margin: 0 auto;
+    left: 0;
     box-sizing: border-box;
     top: 50px;
     background-color: #F8F8F8;

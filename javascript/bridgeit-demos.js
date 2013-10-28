@@ -7,7 +7,7 @@ bridgeit.launchFailed = function(){
     popup.style.display = 'block';
     var vwidth = document.body.clientWidth;
     //center popup with 30px padding of body
-    popup.style.marginLeft = '' + ((vwidth*0.4)/2)-30 + 'px';
+    //popup.style.marginLeft = '' + ((vwidth*0.4)/2)-30 + 'px';
 }
 function closeGetBridgeItPopup(){
     var popup = document.getElementById('getBridgeItPopup');
