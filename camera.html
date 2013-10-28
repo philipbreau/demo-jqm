@@ -26,43 +26,67 @@ bridgeit.camera( 'myId', callback, {postURL: 'myURL'});
     <fieldset id="images">
     </fieldset>
     <script type="text/javascript">
+    //check photo storage and load any existing photos
+    var PHOTO_STORE_KEY = 'photos';
+    var photos = getStoredPhotos();
+    console.log('photos: ' + JSON.stringify(photos));
+    if( photos ){
+        var photosElem = document.getElementById("images");
+        for( var i = 0 ; i < photos.length ; i++ ){
+            var row = document.createElement('div');
+            row.setAttribute('class','row');
+            photosElem.appendChild(row);
+            var img = document.createElement('img');
+            img.setAttribute('src',  photos[i]);
+            row.appendChild(img);
+        }
+    }
+
     function handleCam(event)  {
+        console.log('handleCam: ' + event);
         var text = event.value;
         if (event.preview)  {
             document.getElementById("photoThumbnail").setAttribute("src", event.preview);
             document.getElementById("currentPhotoDesc").innerHTML = "Last photo taken at " + new Date();
         }
         if (event.response)  {
-            var photos = JSON.parse(event.response);
-            for( var i = photos.length ; i > 0 ; i-- ){
-                var photoDivId = 'photoDiv'+(i-1);
-                var photoDiv = document.getElementById(photoDivId);
-                
-                if( !photoDiv ){
-                    var row = document.createElement('div');
-                    row.id = photoDivId;
-                    row.setAttribute('class','row');
-                    var elem = document.getElementById("images");
-                    elem.insertBefore(row,elem.firstChild);
-                    row.innerHTML = "<a id='photoLink" + i + "' onclick=\"loadPhoto(" + i + ",'" + photos[i-1] + "');\">Load Photo " + i + "</a>";
-                }
-                
-            }
-            
+            var photo = event.response;
+            var row = document.createElement('div');
+            row.setAttribute('class','row');
+            var elem = document.getElementById('images');
+            elem.insertBefore(row,elem.firstChild);
+            row.innerHTML = "<a id='photoLink' class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadPhoto('" + photo + "');\">Load Photo</a>";
         }
     }
-    function loadPhoto(id, url){
-        var photoLink = document.getElementById('photoLink'+id);
+    function loadPhoto(url){
+        var photoLink = document.getElementById('photoLink');
         if( photoLink ){
             var parent = photoLink.parentNode;
             parent.removeChild(photoLink);
             var img = document.createElement('img');
-            img.id = 'photo' + id;
-            img.setAttribute('src',  window.serviceHub + "/" + url);
+            var src = window.serviceHub + "/" + url;
+            img.setAttribute('src',  src);
             parent.appendChild(img);
+            setTimeout(function () {
+                storePhoto(src);
+            },2000);
         }
     }
-
+    function getStoredPhotos(){
+        var serializedPhotos = localStorage[PHOTO_STORE_KEY];
+        if( serializedPhotos ){
+            return JSON.parse(serializedPhotos);
+        }
+        else{
+            return [];
+        }
+    }
+    function storePhoto(photo){
+        console.log('storing photo ' + photo );
+        var photos = getStoredPhotos();
+        photos.push(photo);
+        localStorage[PHOTO_STORE_KEY] = JSON.stringify(photos);
+    }
     </script>
 </div>
 
