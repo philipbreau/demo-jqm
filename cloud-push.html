@@ -29,6 +29,10 @@ ice.push.notify( 'myPushGroup', {
     </fieldset>
     <script type="text/javascript">
 
+    if (bridgeit.isRegistered())  {
+        document.getElementById('regBtn').style.visibility = 'hidden';
+    }
+
     function handleNotification(event)  {
         alert(event);
     }
