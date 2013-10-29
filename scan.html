@@ -26,15 +26,15 @@ bridgeit.scan( 'myId', callback);
         if (HTTP == text.substring(0, HTTP.length))  {
             text = "<span class='ellipsis'><a href='" + text + "'>" + text + "</a></span>";
         }
-        var elem = document.getElementById("scans");
+        var scans = document.getElementById("scans");
         var row1 = document.createElement('div');
-        row1.setAttribute('class','row');
-        row1.innerHTML = "<span class='ellipsis'>Scanned at " + simpleTime() + "</span>";
-        elem.appendChild(row1);
+        row1.setAttribute('class','row timestamp');
+        row1.innerHTML = "<span class='ellipsis'>Scanned on " + new Date() + "</span>";
         var row2 = document.createElement('div');
         row2.setAttribute('class','row');
         row2.innerHTML = text;
-        elem.appendChild(row2);
+        scans.insertBefore(row2, scans.firstChild);
+        scans.insertBefore(row1, scans.firstChild);
     }
     </script>
 </div>

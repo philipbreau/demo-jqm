@@ -363,3 +363,7 @@ fieldset.desc{
 .ui-page-header-fixed {
     padding-top: 37px;
 }
+.timestamp{
+    color: red;
+    font-size: 8px;
+}
