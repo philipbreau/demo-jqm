@@ -17,7 +17,7 @@ ice.push.notify( 'myPushGroup', {
     </fieldset>
 
     <a id="regBtn" type="button" class="btn"
-        onclick="bridgeit.register('_reg');">Enable Cloud Push</a>
+        onclick="bridgeit.register('_reg', 'handleReg');">Enable Cloud Push</a>
 
     <a id="pushBtn" type="button" class="btn"
         onclick="delayedPush();">Push in 10 seconds ...</a>
@@ -33,8 +33,10 @@ ice.push.notify( 'myPushGroup', {
         document.getElementById('regBtn').style.visibility = 'hidden';
     }
 
-    function handleNotification(event)  {
-        alert(event);
+    function handleReg(event)  {
+        if (bridgeit.isRegistered())  {
+            document.getElementById('regBtn').style.visibility = 'hidden';
+        }
     }
 
     function handlePush()  {
