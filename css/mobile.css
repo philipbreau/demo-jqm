@@ -319,9 +319,8 @@ fieldset.desc{
     background-color: #D7D7D7;
     opacity: 0.9;
     font-size: 13px;
-    line-height: 1.7em;
     background-image: none;
-    padding: 10px 15px;
+    padding: 10px 0 5px 0;
     -moz-box-shadow:    inset 0px 6px 27px -6px #000;
     -webkit-box-shadow: inset 0px 6px 27px -6px #000;
     box-shadow:         inset 0px 6px 27px -6px #000;
@@ -333,6 +332,7 @@ fieldset.desc{
     font-size: 7px;
     color: #000;
     text-shadow: none;
+    margin-left: 15px;
 }
 .ui-footer .icon-twitter-sign, .ui-footer .icon-facebook-sign, .ui-footer .icon-github{
     color: #EB6135;
@@ -348,12 +348,15 @@ fieldset.desc{
 }
 .ui-footer .icon-twitter-sign{
     right: 60px;
+    top: 5px;
 }
 .ui-footer .icon-facebook-sign{
     right: 15px;
+    top: 5px;
 }
 .ui-footer .icon-github{
     right: 105px;
+    top: 5px;
 }
 .ui-btn-active:visited, .ui-btn-active:hover, .ui-btn-active a.ui-link-inherit,
 .btnBack:active, .btnBack:focus {
@@ -366,4 +369,7 @@ fieldset.desc{
 .timestamp{
     color: red;
     font-size: 8px;
+}
+.icesoft-link{
+    margin-left: 15px;
 }
