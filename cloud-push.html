@@ -54,13 +54,33 @@ ice.push.notify( 'myPushGroup', {
     //change to a uniquely generated pushID once initial testing is complete
     bridgeit.addPushListener('bridgeit', 'handlePush');
 
-    window.addEventListener("pageShow", function () {
-        ice.push.connection.resumeConnection();
-    }, false);
+    //move pause and resume to ICEpush when ready
+    function pausePush()  {
+       if (window.ice && ice.push)  {
+           ice.push.connection.pauseConnection();
+       }
+    }
+    function resumePush()  {
+       if (window.ice && ice.push)  {
+           ice.push.connection.resumeConnection();
+       }
+    }
 
-    window.addEventListener("pagehide", function () {
-        ice.push.connection.pauseConnection();
-    }, false);
+    document.addEventListener("webkitvisibilitychange", function () {
+        if (document.webkitHidden)  {
+            pausePush();
+        } else {
+            resumePush();
+        }
+    });
+
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden)  {
+            pausePush();
+        } else {
+            resumePush();
+        }
+    });
 
     function delayedPush()  {
         bridgeit.push( 'bridgeit',
