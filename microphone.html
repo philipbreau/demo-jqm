@@ -23,24 +23,71 @@ bridgeit.microphone( 'myId', callback, {postURL: '/upload'});
     <fieldset id="recordings">
     </fieldset>
     <script type="text/javascript">
-    function handleAudio(event)  {
-        var text = event.value;
-        if (event.response)  {
-            var recordings = JSON.parse(event.response);
-            var elem = document.getElementById("recordings");
+        //check storage and load any existing recordings
+        var AUDIO_STORE_KEY = 'recordings';
+        var recordings = getStoredRecordings();
+        console.log('recordings: ' + JSON.stringify(recordings));
+        if( recordings ){
+            var recordingsElem = document.getElementById("recordings");
             for( var i = 0 ; i < recordings.length ; i++ ){
-                var row1 = document.createElement('div');
-                row1.setAttribute('class','row');
-                row1.innerHTML = "Audio recorded on " + new Date();
-                elem.appendChild(row1);
-                var row2 = document.createElement('div');
-                row2.setAttribute('class','row');
-                row2.innerHTML = "<audio src='" + window.serviceHub + "/" + recordings[i] + "' controls='controls' preload='auto' type='audio/mp3'/>";
-                elem.appendChild(row2);
+                var row = document.createElement('div');
+                row.setAttribute('class','row');
+                recordingsElem.appendChild(row);
+                var audioElem = document.createElement('audio');
+                audioElem.setAttribute('src', recordings[i]);
+                audioElem.setAttribute('controls', 'controls');
+                audioElem.setAttribute('preload', 'auto');
+                audioElem.setAttribute('type', 'audio/mp3');
+                row.appendChild(audioElem);
+                console.log('appended audio elem: ' + audioElem);
             }
-            
         }
-    }
+
+        function handleAudio(event)  {
+            console.log('handleAudio: ' + event);
+            var text = event.value;
+            if (event.response)  {
+                var audioSrc = event.response;
+                console.log('response audio src: ' + audioSrc);
+                var row = document.createElement('div');
+                row.setAttribute('class','row');
+                var elem = document.getElementById('recordings');
+                elem.insertBefore(row,elem.firstChild);
+                row.innerHTML = "<a id='audioLink' class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadAudio('" + audioSrc + "');\">Load Audio</a>";
+            }
+        }
+        function loadAudio(url){
+            var audioLink = document.getElementById('audioLink');
+            if( audioLink ){
+                var parent = audioLink.parentNode;
+                parent.removeChild(audioLink);
+                var audioElem = document.createElement('audio');
+                var src = window.serviceHub + "/" + url;
+                audioElem.setAttribute('src',  src);
+                audioElem.setAttribute('controls', 'controls');
+                audioElem.setAttribute('preload', 'auto');
+                audioElem.setAttribute('type', 'audio/mp3');
+                parent.appendChild(audioElem);
+                storeAudio(src);
+            }
+        }
+        function getStoredRecordings(){
+            var serializedRecordings = localStorage[AUDIO_STORE_KEY];
+            if( serializedRecordings ){
+                return JSON.parse(serializedRecordings);
+            }
+            else{
+                return [];
+            }
+        }
+        function storeAudio(src){
+            console.log('storing audio ' + src );
+            var recordings = getStoredRecordings();
+            recordings.push(src);
+            localStorage[AUDIO_STORE_KEY] = JSON.stringify(recordings);
+        }
+
+
     </script>
 
 </div>

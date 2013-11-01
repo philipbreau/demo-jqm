@@ -27,23 +27,77 @@ bridgeit.camcorder( 'myId', callback, {postURL: '/upload'});
     <fieldset id="videos">
     </fieldset>
     <script type="text/javascript">
-    function handleVideo(event)  {
-        var text = event.value;
-        if (event.preview)  {
-            document.getElementById("videoThumbnailField").style.display = "block";
-            document.getElementById("currentVideoDesc").innerHTML = "Last video taken at " + new Date();
-            document.getElementById("videoThumbnail").setAttribute("src", event.preview);
-        }
-        if (event.response)  {
-            var videos = JSON.parse(event.response);
-            var elem = document.getElementById("videos");
-            for( var i = 0 ; i < videos.length ; i++ ){
-                var row = document.createElement('div');
-                row.setAttribute('class','row');
-                row.innerHTML = "<video src='" + window.serviceHub + "/" + videos[i] + "' controls='controls' preload='auto' type='video/mp4' webkit-playsinline='yes'/>";
-                elem.appendChild(row);
-            }
+    //check storage and load any existing recordings
+    var VIDEO_STORE_KEY = 'videos';
+    var videos = getStoredVideos();
+    console.log('videos: ' + JSON.stringify(videos));
+    if( videos ){
+        var videosElem = document.getElementById("videos");
+        for( var i = 0 ; i < videos.length ; i++ ){
+            var row = document.createElement('div');
+            row.setAttribute('class','row');
+            videosElem.appendChild(row);
+            var vid = document.createElement('video');
+            vid.setAttribute('src', videos[i]);
+            vid.setAttribute('controls', 'controls');
+            vid.setAttribute('preload', 'auto');
+            vid.setAttribute('type', 'video/mp4');
+            vid.setAttribute('webkit-playsinline', 'yes');
+            row.appendChild(vid);
         }
     }
+
+    function handleVideo(event)  {
+        console.log('handleVideo: ' + event);
+        var text = event.value;
+        if (event.preview)  {
+            document.getElementById("videoThumbnail").setAttribute("src", event.preview);
+            document.getElementById("currentVideoDesc").innerHTML = "Last video taken at " + new Date();
+        }
+        if (event.response)  {
+            var video = event.response;
+            console.log('response: ' + video);
+            var row = document.createElement('div');
+            row.setAttribute('class','row');
+            var elem = document.getElementById('videos');
+            elem.insertBefore(row,elem.firstChild);
+            row.innerHTML = "<a id='videoLink' class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadVideo('" + video + "');\">Load Video</a>";
+        }
+    }
+    function loadVideo(url){
+        var videoLink = document.getElementById('videoLink');
+        if( videoLink ){
+            var parent = videoLink.parentNode;
+            parent.removeChild(videoLink);
+            var vid = document.createElement('video');
+            var src = window.serviceHub + "/" + url;
+            vid.setAttribute('src',  src);
+            vid.setAttribute('controls', 'controls');
+            vid.setAttribute('preload', 'auto');
+            vid.setAttribute('type', 'video/mp4');
+            vid.setAttribute('webkit-playsinline', 'yes');
+            parent.appendChild(vid);
+            setTimeout(function () {
+                storeVideo(src);
+            },2000);
+        }
+    }
+    function getStoredVideos(){
+        var serializedVideos = localStorage[VIDEO_STORE_KEY];
+        if( serializedVideos ){
+            return JSON.parse(serializedVideos);
+        }
+        else{
+            return [];
+        }
+    }
+    function storeVideo(video){
+        console.log('storing video ' + video );
+        var videos = getStoredVideos();
+        videos.push(video);
+        localStorage[VIDEO_STORE_KEY] = JSON.stringify(videos);
+    }
+
+
     </script>
 </div>
