@@ -38,10 +38,10 @@ title: Augmented Reality
           title: 'You are here',
         });
 
-        var iconBase = (Math.round(Math.random() * 9) + 1);
+        var iconBase = (Math.round(Math.random() * 5) + 1);
 
         google.maps.event.addListener(map, 'click', function(event) {
-            var iconNum = ((iconBase + (counter++)) % 9) + 1;
+            var iconNum = ((iconBase + (counter++)) % 5) + 1;
             var markerName = "Aug" + iconNum + (counter++);
             var iconFile = "icons/icon" +
                     iconNum + ".png";
