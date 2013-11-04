@@ -1,15 +1,15 @@
 ---
-id: geospy
+id: geotrack
 layout: demo
-title: GeoSpy
+title: GeoTrack
 ---
-<div id="geospy" title="Locate It" class="panel" onfocus="geoSpyVisible();">
-    <h2>GeoSpy Location Tracking</h2>
+<div id="geotrack" title="Locate It" class="panel" onfocus="geoTrackVisible();">
+    <h2>GeoTrack Location Tracking</h2>
     <fieldset class="desc">
         <div class="row"><p class="normalText">Continual geolocation tracking with a simple line of JavaScript...</p></div>
         <div class="row">
 {% highlight javascript %}
-bridgeit.geoSpy( 'myId', callback, { postURL: '/upload', 
+bridgeit.geoTrack( 'myId', callback, { postURL: '/upload', 
       parameters: {strategy: 'significant'}});
 {% endhighlight %}
         </div>
@@ -17,50 +17,50 @@ bridgeit.geoSpy( 'myId', callback, { postURL: '/upload',
     
     <!--expected final, privacy-preserving variant below-->
     <!--a id="track" type="button" class="whiteButton bridgeItBtn"
-        onclick="bridgeit.geoSpy('tracker','handleSpy', {postURL: window.serviceHub + '/echoput/geospy'+jguid, parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a-->
+        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.serviceHub + '/echoput/geotrack'+jguid, parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a-->
     <a id="track" type="button" class="btn"
-        onclick="bridgeit.geoSpy('tracker','handleSpy', {postURL: window.serviceHub + '/echoput/geospy', parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a>
+        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.serviceHub + '/echoput/geotrack', parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a>
 
         
-    <div id="spyMapCanvas" style="height:200px"></div>
+    <div id="trackMapCanvas" style="height:200px"></div>
     <script type="text/javascript">
-    window.geoSpying = false;
+    window.geoTracking = false;
     
     bridgeit.usePushService("http://labs.icesoft.com/push");
-    bridgeit.addPushListener('geospy', function() {
-        console.log("geospy Push received");
+    bridgeit.addPushListener('geotrack', function() {
+        console.log("geotrack Push received");
         updateMarkers();
     });
 
-    function handleSpy()  {
+    function handleTrack()  {
     }
-    function geoSpyVisible()  {
-        initSpyMap();
+    function geoTrackVisible()  {
+        initTrackMap();
         setTimeout( function(){
-            google.maps.event.trigger(geoSpyMap, 'resize');
+            google.maps.event.trigger(geoTrackMap, 'resize');
             updateMarkers();
         },1000);
     }
-    var geoSpyMap;
-    var geoSpyMapMarkers = [];
-    function initSpyMap() {
-        if( !window.geoSpying ){
-            window.geoSpying = true;
+    var geoTrackMap;
+    var geoTrackMapMarkers = [];
+    function initTrackMap() {
+        if( !window.geoTracking ){
+            window.geoTracking = true;
             var mapOptions = {
                 center: new google.maps.LatLng(-34.397, 150.644),
                 maxZoom: 20,
                 zoom: 8,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            geoSpyMap = new google.maps.Map(document
-                    .getElementById('spyMapCanvas'), mapOptions);
+            geoTrackMap = new google.maps.Map(document
+                    .getElementById('trackMapCanvas'), mapOptions);
             
         }
     }
 
     function updateMarkers()  {
-//        ajaxGet(window.serviceHub + '/echofetch/geospy-' + jguid, processMarkers);
-        ajaxGet(window.serviceHub + '/echofetch/geospy', processMarkers);
+//        ajaxGet(window.serviceHub + '/echofetch/geotrack-' + jguid, processMarkers);
+        ajaxGet(window.serviceHub + '/echofetch/geotrack', processMarkers);
     }
 
     function processMarkers(data)  {
@@ -78,12 +78,12 @@ bridgeit.geoSpy( 'myId', callback, { postURL: '/upload',
                         markerData[i].properties.jguid.substring(0,6);
 
                 //check if provided marker is too close to existing marker
-                var existLen = geoSpyMapMarkers.length;
+                var existLen = geoTrackMapMarkers.length;
                 var minDistance = 100;
                 for (var j = 0; j < existLen; j++)  {
                     var distance = google.maps.geometry.spherical
                             .computeDistanceBetween (location, 
-                            geoSpyMapMarkers[j].position);
+                            geoTrackMapMarkers[j].position);
                     if (distance < minDistance)  {
                         minDistance = distance;
                     }
@@ -100,22 +100,22 @@ bridgeit.geoSpy( 'myId', callback, { postURL: '/upload',
                         strokeColor: markerColor,
                         scale: 3
                     },
-                    map: geoSpyMap
+                    map: geoTrackMap
                 });
-                geoSpyMapMarkers.push(marker);
+                geoTrackMapMarkers.push(marker);
             }
             if (markersPlaced)  {
                 var bounds = new google.maps.LatLngBounds();
-                var existLen = geoSpyMapMarkers.length;
+                var existLen = geoTrackMapMarkers.length;
                 for (var j = 0; j < existLen; j++)  {
-                    bounds.extend(geoSpyMapMarkers[j].position);
+                    bounds.extend(geoTrackMapMarkers[j].position);
                 }
-                geoSpyMap.fitBounds(bounds);
+                geoTrackMap.fitBounds(bounds);
             }
             
         }
         else{
-            console.log('no data for geospy...')
+            console.log('no data for geotrack...')
         }
     }
 
