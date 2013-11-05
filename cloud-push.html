@@ -42,11 +42,14 @@ ice.push.notify( 'myPushGroup', {
     function handlePush()  {
         var now = new Date();
         var outDiv = document.getElementById("notifications");
-        outDiv.innerHTML = 
+        var row = document.createElement("div");
+        row.style["background-color"] = "#FF855E";
+        outDiv.insertBefore(row, outDiv.firstChild);
+            row.innerHTML =
             "<b>You have been notified:</b> " + simpleTime();
         window.setTimeout(function() {
-            outDiv.innerHTML = "";
-        }, 5000)
+            row.style["background-color"] = "white";
+        }, 3000)
             
     }
 
