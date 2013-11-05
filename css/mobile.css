@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'GoodTimes';
+  src: url('fonts/good_times_rg.otf') format("opentype"),
+       url('fonts/good_times_rg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.ui-title{
+    font-family: GoodTimes, Arial;
+}
 h2{ 
     margin: 0 -15px;
     padding: 9px 15px 5px 15px;
@@ -90,7 +100,6 @@ body .hdr{
     padding-left: 35px;
     text-shadow: 1px 1px 1px #CCC;
 }
-.hdr > h1 { font-style: italic; }
 .icesoft-emblem {
     right: 12px;
     display: inline-block;
@@ -158,10 +167,12 @@ body .hdr{
     font-family: 'Open Sans', sans-serif;
 }
 .bridge-font-color{
-    color: rgb(26,150,130);
+    color: #777;
+    text-shadow: none;
 }
 .it-font-color{
-    color: rgb(155,205,147);
+    color: #FF855E;
+    text-shadow: none;
 }
 .ui-header .ui-title, .ui-footer .ui-title{
     margin: 5px;
