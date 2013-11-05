@@ -9,6 +9,14 @@ bridgeit.launchFailed = function(){
     //center popup with 30px padding of body
     //popup.style.marginLeft = '' + ((vwidth*0.4)/2)-30 + 'px';
 }
+bridgeit.notSupported = function(id, command){
+    if( !bridgeit.isIOS() && !bridgeit.isAndroid() && !bridgeit.isWindowsPhone8()){
+        alert('Would you like to try the full mobile experience with BridgeIt? Grab an iOS, Android, or Windows 8 Phone device and try it out!');
+    }
+    else{
+        alert('Sorry, the command ' + command + ' for BridgeIt is not supported on this platform');
+    }
+}
 function closeGetBridgeItPopup(){
     var popup = document.getElementById('getBridgeItPopup');
     popup.style.opacity = 0;
