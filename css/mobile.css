@@ -185,7 +185,14 @@ body .hdr{
     border: 1px solid rgba(244,183,163,0.8);
 }
 .splash{
-    background-image: linear-gradient(0deg, #B7B7B2, #E07047);
+    background: rgb(235,88,65); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(235,88,65,1) 0%, rgba(247,134,87,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(235,88,65,1)), color-stop(100%,rgba(247,134,87,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(235,88,65,1) 0%,rgba(247,134,87,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(235,88,65,1) 0%,rgba(247,134,87,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(235,88,65,1) 0%,rgba(247,134,87,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(235,88,65,1) 0%,rgba(247,134,87,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eb5841', endColorstr='#f78657',GradientType=0 ); /* IE6-9 */
     margin: -15px;
     padding: 15px 15px 0 15px;
     margin-bottom: 20px;
