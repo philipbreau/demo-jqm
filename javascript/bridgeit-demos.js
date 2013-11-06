@@ -1,4 +1,4 @@
-window.serviceHub = 'http://labs.icesoft.com/bridgeit-services/service';
+window.serviceHub = 'http://api.bridgeit.mobi/echo/service';
 
 bridgeit.launchFailed = function(){
     document.getElementById('appStoreLink').href = bridgeit.appStoreLink();
