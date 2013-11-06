@@ -162,11 +162,11 @@ body .hdr.demo{
 .ui-btn-up-c, .ui-btn-hover-c, .ui-btn-down-c  {
     font-family: 'Open Sans', sans-serif;
 }
-.hdr{
+body .hdr, body .hdr a{
     color: #EC5B09;
     text-shadow: none;
 }
-.hdr.demo{
+body .hdr.demo, body .hdr.demo a{
     color: #FCFCFC;
 }
 .ui-header .ui-title, .ui-footer .ui-title{
@@ -385,4 +385,18 @@ fieldset.desc{
 }
 .icesoft-link{
     margin-left: 15px;
+}
+#menu i{
+    margin-right: 8px;
+    color: #9B9B9B;
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+}
+span.ellipsis{
+    max-width: 100%; 
+    overflow: hidden;
+    padding: 10px;
+    text-overflow:ellipsis; 
+    white-space:nowrap
 }
