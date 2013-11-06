@@ -53,7 +53,8 @@ ice.push.notify( 'myPushGroup', {
             
     }
 
-    bridgeit.usePushService("http://labs.icesoft.com/push");
+    bridgeit.usePushService(" http://api.bridgeit.mobi/push/",
+            "01B5B7AF-5B83-48F9-880A-B853165B98DC");
     bridgeit.addPushListener(bridgeit.getId(), 'handlePush');
 
     //move pause and resume to ICEpush when ready
