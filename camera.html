@@ -15,7 +15,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="cameraBtn" type="button" class="btn"
-        onclick="bridgeit.camera('cameraBtn','handleCam', {postURL:window.serviceHub + '/camera-upload'});">Take a Photo</a>
+        onclick="bridgeit.camera('cameraBtn','handleCam', {postURL:window.echoHub + '/camera-upload'});">Take a Photo</a>
         
     <fieldset id="currentPhoto">
         <div class="row">
@@ -65,7 +65,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
             var parent = photoLink.parentNode;
             parent.removeChild(photoLink);
             var img = document.createElement('img');
-            var src = window.serviceHub + "/" + url;
+            var src = window.echoHub + "/" + url;
             img.setAttribute('src',  src);
             parent.appendChild(img);
             setTimeout(function () {
