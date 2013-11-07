@@ -51,12 +51,14 @@ ice.push.notify( 'myPushGroup', {
         var now = new Date();
         var outDiv = document.getElementById("notifications");
         var row = document.createElement("div");
-        row.style["background-color"] = "#FF855E";
+        if( hasClassList() )
+            row.classList.add('hl');
         outDiv.insertBefore(row, outDiv.firstChild);
             row.innerHTML =
-            "<b>You have been notified:</b> " + simpleTime();
+            "<b>You were notified:</b> " + simpleTime();
         window.setTimeout(function() {
-            row.style["background-color"] = "white";
+            if( hasClassList() )
+                row.classList.remove('hl');
         }, 3000);
         updatePushButtonText('Push in 10 seconds ...');
     }

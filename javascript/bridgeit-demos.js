@@ -64,3 +64,9 @@ function simpleTime()  {
     ("00" + now.getMinutes()).slice(-2) + ":" +
     ("00" + now.getSeconds()).slice(-2);
 }
+function hasClassList(){
+    return "document" in self && (
+                "classList" in document.createElement("_") &&
+                "classList" in document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        );
+}

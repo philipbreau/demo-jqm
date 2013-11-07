@@ -403,3 +403,11 @@ span.ellipsis{
 .ui-btn-up-c:visited, .ui-btn-up-c a.ui-link-inherit, .ui-btn-active a.ui-link-inherit {
     color: #666;
 }
+#notifications > div{
+    padding: 5px;
+    text-shadow: none;
+    border-right: 10px;
+}
+#notifications .hl{
+    background-color: #FDC8B7;
+}
