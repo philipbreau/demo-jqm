@@ -1,6 +1,6 @@
 window.echoHub = 'http://api.bridgeit.mobi/echo/service';
-//window.pushHub = 'http://api.bridgeit.mobi/push/';
-window.pushHub = 'http://labs.icesoft.com/push/';
+window.pushHub = 'http://api.bridgeit.mobi/push/';
+//window.pushHub = 'http://labs.icesoft.com/push/';
 window.apiKey = '01B5B7AF-5B83-48F9-880A-B853165B98DC';
 
 bridgeit.launchFailed = function(){
