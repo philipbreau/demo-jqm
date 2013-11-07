@@ -21,7 +21,7 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
     </fieldset>
     
     <a id="track" type="button" class="btn"
-        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + '/echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a>
+        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + '/echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:1,_jguid:bridgeit.getId()}});">Start Tracking</a>
 
     <div id="trackMapCanvas" style="height:200px"></div>
     <script type="text/javascript">
