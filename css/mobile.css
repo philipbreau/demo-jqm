@@ -163,7 +163,7 @@ body .hdr.demo{
     font-family: 'Open Sans', sans-serif;
 }
 body .hdr, body .hdr a{
-    color: #EC5B09;
+    color: #EB5841;
     text-shadow: none;
 }
 body .hdr.demo, body .hdr.demo a{
@@ -399,4 +399,7 @@ span.ellipsis{
     padding: 10px;
     text-overflow:ellipsis; 
     white-space:nowrap
+}
+.ui-btn-up-c:visited, .ui-btn-up-c a.ui-link-inherit, .ui-btn-active a.ui-link-inherit {
+    color: #666;
 }

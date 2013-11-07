@@ -48,15 +48,14 @@ bridgeit.camcorder( 'myId', callback, {postURL: '/upload'});
     }
 
     function handleVideo(event)  {
-        console.log('handleVideo: ' + event);
-        var text = event.value;
+        console.log('handleVideo preview: ' + event.preview);
         if (event.preview)  {
             document.getElementById("videoThumbnail").setAttribute("src", event.preview);
             document.getElementById("currentVideoDesc").innerHTML = "Last video taken at " + new Date();
         }
+        console.log('handleVideo response: ' + event.response);
         if (event.response)  {
             var video = event.response;
-            console.log('response: ' + video);
             var row = document.createElement('div');
             row.setAttribute('class','row');
             var elem = document.getElementById('videos');
