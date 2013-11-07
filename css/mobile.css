@@ -401,7 +401,7 @@ span.ellipsis{
     white-space:nowrap
 }
 .ui-btn-up-c:visited, .ui-btn-up-c a.ui-link-inherit, .ui-btn-active a.ui-link-inherit {
-    color: #666;
+    color: #555;
 }
 #notifications > div{
     padding: 5px;
