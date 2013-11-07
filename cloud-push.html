@@ -17,7 +17,7 @@ ice.push.notify( 'myPushGroup', {
     </fieldset>
 
     <a id="regBtn" type="button" class="btn"
-        onclick="bridgeit.register('_reg', 'handleReg');">Enable Cloud Push</a>
+        onclick="bridgeit.register('_reg', 'handlePushRegistration');">Enable Cloud Push</a>
 
     <a id="pushBtn" type="button" class="btn"
         onclick="delayedPush();">Push in 10 seconds ...</a>
@@ -30,12 +30,20 @@ ice.push.notify( 'myPushGroup', {
     <script type="text/javascript">
 
     if (bridgeit.isRegistered())  {
-        document.getElementById('regBtn').style.visibility = 'hidden';
+        document.getElementById('regBtn').style.display = 'none';
     }
 
-    function handleReg(event)  {
+    function delayedPush()  {
+        bridgeit.push( bridgeit.getId(),
+            {subject:'BridgeIt Cloud Push',
+            detail:'You have been notified.', delay:10000} );
+        updatePushButtonText('Waiting for push...');
+    }
+
+    function handlePushRegistration(event)  {
+        console.log('handlePushRegistration() called, registered=' + bridgeit.isRegistered());
         if (bridgeit.isRegistered())  {
-            document.getElementById('regBtn').style.visibility = 'hidden';
+            document.getElementById('regBtn').style.display = 'none';
         }
     }
 
@@ -49,12 +57,15 @@ ice.push.notify( 'myPushGroup', {
             "<b>You have been notified:</b> " + simpleTime();
         window.setTimeout(function() {
             row.style["background-color"] = "white";
-        }, 3000)
-            
+        }, 3000);
+        updatePushButtonText('Push in 10 seconds ...');
     }
 
-    bridgeit.usePushService("http://api.bridgeit.mobi/push/",
-            "01B5B7AF-5B83-48F9-880A-B853165B98DC");
+    function updatePushButtonText(text){
+        document.getElementById('pushBtn').firstChild.firstChild.innerText = text;
+    }
+
+    bridgeit.usePushService( window.pushHub, window.apiKey);
     bridgeit.addPushListener(bridgeit.getId(), 'handlePush');
 
     //move pause and resume to ICEpush when ready
@@ -85,10 +96,6 @@ ice.push.notify( 'myPushGroup', {
         }
     });
 
-    function delayedPush()  {
-        bridgeit.push( bridgeit.getId(),
-            {subject:'BridgeIt Cloud Push',
-            detail:'You have been notified.', delay:10000} );
-    }
+    
     </script>
 </div>
