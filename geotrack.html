@@ -20,13 +20,9 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
         </div>
     </fieldset>
     
-    <!--expected final, privacy-preserving variant below-->
-    <!--a id="track" type="button" class="whiteButton bridgeItBtn"
-        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + '/echoput/geotrack'+jguid, parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a-->
     <a id="track" type="button" class="btn"
-        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + '/echoput/geotrack', parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a>
+        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + '/echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:1,_jguid:jguid}});">Start Tracking</a>
 
-        
     <div id="trackMapCanvas" style="height:200px"></div>
     <script type="text/javascript">
     window.geoTracking = false;
