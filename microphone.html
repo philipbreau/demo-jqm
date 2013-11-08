@@ -49,26 +49,24 @@ bridgeit.microphone( 'myId', callback, {postURL: '/upload'});
             if (event.response)  {
                 var audioSrc = event.response;
                 console.log('response audio src: ' + audioSrc);
+
                 var row = document.createElement('div');
                 row.setAttribute('class','row');
                 var elem = document.getElementById('recordings');
+
                 elem.insertBefore(row,elem.firstChild);
-                row.innerHTML = "<a id='audioLink' class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadAudio('" + audioSrc + "');\">Load Audio</a>";
-            }
-        }
-        function loadAudio(url){
-            var audioLink = document.getElementById('audioLink');
-            if( audioLink ){
-                var parent = audioLink.parentNode;
-                parent.removeChild(audioLink);
                 var audioElem = document.createElement('audio');
-                var src = window.echoHub + "/" + url;
+                var src = window.echoHub + "/" + audioSrc;
                 audioElem.setAttribute('src',  src);
                 audioElem.setAttribute('controls', 'controls');
                 audioElem.setAttribute('preload', 'auto');
                 audioElem.setAttribute('type', 'audio/mp3');
-                parent.appendChild(audioElem);
+                row.appendChild(audioElem);
                 storeAudio(src);
+
+                var infoElem = document.createElement('div');
+                infoElem.innerHTML = "<b>Audio recorded:</b> " + simpleTime();
+                elem.insertBefore(infoElem,elem.firstChild);
             }
         }
         function getStoredRecordings(){

@@ -411,3 +411,6 @@ span.ellipsis{
 #notifications .hl{
     background-color: #FDC8B7;
 }
+#recordings > div{
+    padding: 5px;
+}
