@@ -28,7 +28,7 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
     window.geoTracking = false;
     
     bridgeit.usePushService( window.pushHub, window.apiKey);
-    bridgeit.addPushListener(bridgeit.getId(), function() {
+    bridgeit.addPushListener('geotrack-' + bridgeit.getId(), function() {
         console.log("geotrack Push received");
         updateMarkers();
     });
