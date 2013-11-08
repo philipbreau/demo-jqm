@@ -398,7 +398,8 @@ span.ellipsis{
     overflow: hidden;
     padding: 10px;
     text-overflow:ellipsis; 
-    white-space:nowrap
+    white-space:nowrap;
+    display: inline-block;
 }
 .ui-btn-up-c:visited, .ui-btn-up-c a.ui-link-inherit, .ui-btn-active a.ui-link-inherit {
     color: #555;
