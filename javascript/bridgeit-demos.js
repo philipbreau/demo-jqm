@@ -70,3 +70,31 @@ function hasClassList(){
                 "classList" in document.createElementNS("http://www.w3.org/2000/svg", "svg")
         );
 }
+
+//move pause and resume to ICEpush when ready
+function pausePush()  {
+   if (window.ice && ice.push)  {
+       ice.push.connection.pauseConnection();
+   }
+}
+function resumePush()  {
+   if (window.ice && ice.push)  {
+       ice.push.connection.resumeConnection();
+   }
+}
+
+document.addEventListener("webkitvisibilitychange", function () {
+    if (document.webkitHidden)  {
+        pausePush();
+    } else {
+        resumePush();
+    }
+});
+
+document.addEventListener("visibilitychange", function () {
+    if (document.hidden)  {
+        pausePush();
+    } else {
+        resumePush();
+    }
+});

@@ -69,35 +69,6 @@ ice.push.notify( 'myPushGroup', {
 
     bridgeit.usePushService( window.pushHub, window.apiKey);
     bridgeit.addPushListener(bridgeit.getId(), 'handlePush');
-
-    //move pause and resume to ICEpush when ready
-    function pausePush()  {
-       if (window.ice && ice.push)  {
-           ice.push.connection.pauseConnection();
-       }
-    }
-    function resumePush()  {
-       if (window.ice && ice.push)  {
-           ice.push.connection.resumeConnection();
-       }
-    }
-
-    document.addEventListener("webkitvisibilitychange", function () {
-        if (document.webkitHidden)  {
-            pausePush();
-        } else {
-            resumePush();
-        }
-    });
-
-    document.addEventListener("visibilitychange", function () {
-        if (document.hidden)  {
-            pausePush();
-        } else {
-            resumePush();
-        }
-    });
-
     
     </script>
 </div>
