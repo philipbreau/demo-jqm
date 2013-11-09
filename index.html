@@ -11,6 +11,9 @@ title: Mobile Demo
             <script type="text/javascript">
                $("#getStarted").click(function() {
                    $(".splash").fadeOut();
+                   setTimeout( function(){ 
+                      $(".splash")[0].parentElement.removeChild($(".splash")[0]) 
+                    }, 1000);
                });
                </script>
         </div>
