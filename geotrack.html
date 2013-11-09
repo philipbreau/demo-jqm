@@ -28,10 +28,12 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
     window.geoTracking = false;
     
     bridgeit.usePushService( window.pushHub, window.apiKey);
-    bridgeit.addPushListener('geotrack-' + bridgeit.getId(), function() {
+
+    function onReceiveGeoTrackPush(){
         console.log("geotrack Push received");
         updateMarkers();
-    });
+    }
+    bridgeit.addPushListener("geotrack-" + bridgeit.getId(), "onReceiveGeoTrackPush");
 
     function handleTrack()  {
         console.log('geoTrack handleLocationUpdate');
