@@ -34,6 +34,7 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
     });
 
     function handleTrack()  {
+        console.log('geoTrack handleLocationUpdate');
     }
     function geoTrackVisible()  {
         initTrackMap();
@@ -45,6 +46,7 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
     var geoTrackMap;
     var geoTrackMapMarkers = [];
     function initTrackMap() {
+        console.log('geoTrack initTrackMap');
         if( !window.geoTracking ){
             window.geoTracking = true;
             var mapOptions = {
@@ -60,10 +62,12 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
     }
 
     function updateMarkers()  {
+        console.log('geoTrack updateMarkers');
         ajaxGet(window.echoHub + '/echofetch/geotrack-' + bridgeit.getId(), processMarkers);
     }
 
     function processMarkers(data)  {
+        console.log('geoTrack processMarkers: data='+ data);
         if (data){
             var markerData = JSON.parse(data);
             var len = markerData.length;
@@ -105,12 +109,19 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
                 geoTrackMapMarkers.push(marker);
             }
             if (markersPlaced)  {
-                var bounds = new google.maps.LatLngBounds();
                 var existLen = geoTrackMapMarkers.length;
-                for (var j = 0; j < existLen; j++)  {
-                    bounds.extend(geoTrackMapMarkers[j].position);
+                //if only one marker zoom out to a easy orientation
+                if( existLen == 1 ){
+                    geoTrackMap.setZoom(10);
                 }
-                geoTrackMap.fitBounds(bounds);
+                //else fit map to marker boundaries
+                else{
+                    var bounds = new google.maps.LatLngBounds();
+                    for (var j = 0; j < existLen; j++)  {
+                        bounds.extend(geoTrackMapMarkers[j].position);
+                    }
+                    geoTrackMap.fitBounds(bounds);
+                }
             }
             
         }
