@@ -112,17 +112,14 @@ bridgeit.geoTrack( 'myId', callback, { postURL: '/upload',
             }
             if (markersPlaced)  {
                 var existLen = geoTrackMapMarkers.length;
-                //if only one marker zoom out to a easy orientation
+                var bounds = new google.maps.LatLngBounds();
+                for (var j = 0; j < existLen; j++)  {
+                    bounds.extend(geoTrackMapMarkers[j].position);
+                }
+                geoTrackMap.fitBounds(bounds);
+                //zoom out a bit if only one marker
                 if( existLen == 1 ){
                     geoTrackMap.setZoom(10);
-                }
-                //else fit map to marker boundaries
-                else{
-                    var bounds = new google.maps.LatLngBounds();
-                    for (var j = 0; j < existLen; j++)  {
-                        bounds.extend(geoTrackMapMarkers[j].position);
-                    }
-                    geoTrackMap.fitBounds(bounds);
                 }
             }
             
