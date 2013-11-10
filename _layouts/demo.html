@@ -2,7 +2,7 @@
 <html>
 {% include head.html %}
 <body>
-    <div data-role="page" id="{{ page.id }}">  
+    <div data-role="page" id="{{ page.id }}" {% if page.id == 'home' %}data-dom-cache="true"{% endif %}>  
         {% include header.html %}
         <div data-role="content">
             {{ content }}
