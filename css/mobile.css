@@ -415,3 +415,11 @@ span.ellipsis{
 #recordings > div{
     padding: 5px;
 }
+.augmented-reality-icon{
+    background-image: url(../images/ar-30px.png);
+    height: 23px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: -5px auto -5px auto;
+}
