@@ -3,7 +3,7 @@ id: home
 layout: demo
 title: Mobile Demo
 ---
-    <div class="splash">
+    <div id="splash" class="splash" style="display:none">
          <div class="row">
             <p class="banner-text">Easily add native mobile features to your web apps</p>
             <img src="images/banner-image.png"/>
@@ -11,10 +11,19 @@ title: Mobile Demo
             <script type="text/javascript">
                $("#getStarted").click(function() {
                    $(".splash").fadeOut();
+                   if(typeof(Storage)!=="undefined"){
+                      sessionStorage.setItem('bridgeit.jqmDemo.bannerClosed','true');
+                   }
                    setTimeout( function(){ 
                       $(".splash")[0].parentElement.removeChild($(".splash")[0]) 
                     }, 1000);
                });
+               if(typeof(Storage)!=="undefined"){
+                  var hasClosedBanner = sessionStorage.getItem('bridgeit.jqmDemo.bannerClosed');
+                  if( !hasClosedBanner ){
+                      document.getElementById('splash').style.display = 'block';
+                  } 
+               }
                </script>
         </div>
     </div>
