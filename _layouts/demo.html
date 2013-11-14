@@ -6,14 +6,14 @@
         {% include header.html %}
         <div data-role="content">
             {{ content }}
-            <div id="getBridgeItPopup" style="opacity: 0;display:none;">
-                <a id="closeGetBridgePopup" onclick="closeGetBridgeItPopup();"><i class="icon-remove-sign"></i></a>
-                <p>Missing BridgeIt native features..would you like to download the app now?</p>
-                <a id="appStoreLink" href="http://www.icesoft.org/projects/ICEmobile/containers.jsf"
-                    class="whiteButton bridgeItBtn" target="_blank">Download the app now</a>
-            </div>
         </div>
         {% include footer.html %}
+    </div>
+    <div id="getBridgeItPopup" style="opacity: 0;display:none;">
+        <a id="closeGetBridgePopup" onclick="closeGetBridgeItPopup();"><i class="icon-remove-sign"></i></a>
+        <p>Missing BridgeIt native features..would you like to download the app now?</p>
+        <a id="appStoreLink" href="http://www.icesoft.org/projects/ICEmobile/containers.jsf"
+            class="whiteButton bridgeItBtn" target="_blank">Download the app now</a>
     </div>
 </body>
 </html>
