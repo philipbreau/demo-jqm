@@ -60,11 +60,10 @@ bridgeit.camcorder( 'myId', callback, {postURL: '/upload'});
             row.setAttribute('class','row');
             var elem = document.getElementById('videos');
             elem.insertBefore(row,elem.firstChild);
-            row.innerHTML = "<a id='videoLink' class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadVideo('" + video + "');\">Load Video</a>";
+            row.innerHTML = "<a class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadVideo(this,'" + video + "');\">Load Video</a>";
         }
     }
-    function loadVideo(url){
-        var videoLink = document.getElementById('videoLink');
+    function loadVideo(videoLink, url){
         if( videoLink ){
             var parent = videoLink.parentNode;
             parent.removeChild(videoLink);
