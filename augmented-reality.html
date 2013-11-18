@@ -16,7 +16,10 @@ title: Augmented Reality
       var map = null;
       var marker = null;
       var counter = 1;
-      var locations = {};
+      var locations = {
+        "TourEiffel":"48.858222,2.2945,,,icons/eiffel.png",
+        "TajMahal":"27.174799,78.042111,,,icons/tajmahal.png",
+        "GoldenGate":"37.819722,-122.478611,,,icons/goldengate.png"};
 
       function initialize() {
             var mapOptions = {
@@ -94,10 +97,10 @@ bridgeit.augmentedReality( 'myId', callback, options);
         if (event.response)  {
             var len = "Aug".length;
             var responseLoc = "" + JSON.parse(event.response)["_loc"][0];
-            var iconNum = responseLoc.substring(len, len + 1);
+            console.log("AR selected " + responseLoc);
             document.getElementById("selected")
                     .setAttribute("src",
-                    "icons/icon" + iconNum + ".png");
+                    locations[responseLoc].split(",")[4]);
         }
     }
 
