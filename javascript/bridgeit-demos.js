@@ -5,7 +5,7 @@ window.pushHub = 'http://api.bridgeit.mobi/push/';
 window.apiKey = '630D2772-F295-4D00-A9CC-7BC58FAB4CF8';
 
 bridgeit.launchFailed = function(){
-    document.getElementById('appStoreLink').href = bridgeit.appStoreLink();
+    document.getElementById('appStoreLink').href = bridgeit.appStoreURL();
     var popup = document.getElementById('getBridgeItPopup');
     popup.style.opacity = 0.95;
     popup.style.display = 'block';
