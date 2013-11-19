@@ -3,7 +3,7 @@
 .highlight  { 
 	background: #666; 
 	color: #ffffff;
-	padding: 0.2em 0.9em;
+	padding: 0.2em 0.5em;
   	margin-bottom: 1em;
 	font: normal normal normal 115%/normal 'Monaco', 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace !important;
   	line-height: 1.1em;
@@ -21,6 +21,9 @@ code, pre {
 	font-family: "Consolas", "Courier New", "Courier", "FreeMono", monospace;
 	font-size:14px;
 	margin: .5em 0 .5em 0;
+}
+.highlight code{
+	white-space: normal;
 }
 
 .highlight span{
