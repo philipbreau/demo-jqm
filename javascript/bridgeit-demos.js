@@ -25,6 +25,7 @@ function closeGetBridgeItPopup(){
     var popup = document.getElementById('getBridgeItPopup');
     popup.style.opacity = 0;
     popup.style.display = 'none';
+    return true;
 }
 function ajaxGet(url,cb){
     var request;
