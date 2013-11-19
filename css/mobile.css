@@ -396,7 +396,6 @@ fieldset.desc{
 span.ellipsis{
     max-width: 100%; 
     overflow: hidden;
-    padding: 10px;
     text-overflow:ellipsis; 
     white-space:nowrap;
     display: inline-block;
