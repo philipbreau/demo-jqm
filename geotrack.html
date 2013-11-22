@@ -23,6 +23,9 @@ bridgeit.geoTrack('myId', callback, options);
         onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + '/echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:1,_jguid:bridgeit.getId()}});">Start Tracking</a>
 
     <div id="trackMapCanvas" style="height:200px"></div>
+    <div id="trackMapOverlay" >
+        <span id="trackMapDetail" style="background-color:white"></span>
+    </div>
     <script type="text/javascript">
     window.geoTracking = false;
     
@@ -59,7 +62,9 @@ bridgeit.geoTrack('myId', callback, options);
             };
             geoTrackMap = new google.maps.Map(document
                     .getElementById('trackMapCanvas'), mapOptions);
-            
+            var overlay = document.getElementById('trackMapOverlay');
+            geoTrackMap.controls[google.maps.ControlPosition.RIGHT_TOP]
+                    .push(overlay);
         }
     }
 
@@ -109,6 +114,10 @@ bridgeit.geoTrack('myId', callback, options);
                     map: geoTrackMap
                 });
                 geoTrackMapMarkers.push(marker);
+                document.getElementById("trackMapDetail").innerHTML =
+                    coordinates[0].toFixed(2) + "," +
+                    coordinates[1].toFixed(2) + " " +
+                    coordinates[2].toFixed(2) + "m  ";
             }
             if (markersPlaced)  {
                 var existLen = geoTrackMapMarkers.length;
