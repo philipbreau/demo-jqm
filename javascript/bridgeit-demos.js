@@ -1,8 +1,6 @@
 window.echoHub = 'http://api.bridgeit.mobi/echo/service';
 window.pushHub = 'http://api.bridgeit.mobi/push/';
-//window.pushHub = 'http://labs.icesoft.com/push/';
-//window.apiKey = '01B5B7AF-5B83-48F9-880A-B853165B98DC';
-window.apiKey = '630D2772-F295-4D00-A9CC-7BC58FAB4CF8';
+window.apiKey = '197EBF31-40CD-444F-826F-10158A0F3581';
 
 bridgeit.launchFailed = function(){
     document.getElementById('appStoreLink').href = bridgeit.appStoreURL();
