@@ -1,4 +1,4 @@
-window.echoHub = 'http://api.bridgeit.mobi/echo/service';
+window.echoHub = 'http://api.bridgeit.mobi/echo/';
 window.pushHub = 'http://api.bridgeit.mobi/push/';
 window.apiKey = '197EBF31-40CD-444F-826F-10158A0F3581';
 
