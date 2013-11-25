@@ -15,12 +15,13 @@ bridgeit.scan('myId', callback);
     </fieldset>
     
     <a id="scanBtn" type="button" class="btn"
-        onclick="bridgeit.scan('scanBtn','handleScan');">Scan a Code</a>
+        onclick="bridgeit.scan('scanBtn','onAfterCaptureScan');">Scan a Code</a>
         
     <fieldset id="scans">
     </fieldset>
     <script type="text/javascript">
-    function handleScan(event)  {
+    function onAfterCaptureScan(event)  {
+        console.log('onAfterCaptureScan: ' + JSON.stringify(event));
         var HTTP = "http";
         var text = event.value;
         if (HTTP == text.substring(0, HTTP.length))  {
