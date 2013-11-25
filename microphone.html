@@ -15,7 +15,7 @@ bridgeit.microphone('myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="micBtn" type="button" class="btn"
-        onclick="bridgeit.microphone('micBtn','handleAudio', {postURL: window.echoHub + '/audio-upload'});">Record Audio</a>
+        onclick="bridgeit.microphone('micBtn','handleAudio', {postURL: window.echoHub + 'audio-upload'});">Record Audio</a>
         
     <fieldset>
         <div class="row"></div>
@@ -56,8 +56,7 @@ bridgeit.microphone('myId', callback, {postURL: '/upload'});
 
                 elem.insertBefore(row,elem.firstChild);
                 var audioElem = document.createElement('audio');
-                var src = window.echoHub + "/" + audioSrc;
-                audioElem.setAttribute('src',  src);
+                audioElem.setAttribute('src',  audioSrc);
                 audioElem.setAttribute('controls', 'controls');
                 audioElem.setAttribute('preload', 'auto');
                 audioElem.setAttribute('type', 'audio/mp3');

@@ -15,7 +15,7 @@ bridgeit.camcorder('myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="camcorderBtn" type="button" class="btn"
-        onclick="bridgeit.camcorder('camcorderBtn','handleVideo', {postURL: window.echoHub + '/video-upload'});">Record a Video</a>
+        onclick="bridgeit.camcorder('camcorderBtn','handleVideo', {postURL: window.echoHub + 'video-upload'});">Record a Video</a>
         
     <fieldset id="videoThumbnailField" style="display:none">
         <div class="row">
@@ -68,15 +68,14 @@ bridgeit.camcorder('myId', callback, {postURL: '/upload'});
             var parent = videoLink.parentNode;
             parent.removeChild(videoLink);
             var vid = document.createElement('video');
-            var src = window.echoHub + "/" + url;
-            vid.setAttribute('src',  src);
+            vid.setAttribute('src',  url);
             vid.setAttribute('controls', 'controls');
             vid.setAttribute('preload', 'auto');
             vid.setAttribute('type', 'video/mp4');
             vid.setAttribute('webkit-playsinline', 'yes');
             parent.appendChild(vid);
             setTimeout(function () {
-                storeVideo(src);
+                storeVideo(url);
             },2000);
         }
     }

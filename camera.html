@@ -15,7 +15,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="cameraBtn" type="button" class="btn"
-        onclick="bridgeit.camera('cameraBtn','handleCam', {postURL:window.echoHub + '/camera-upload'});">Take a Photo</a>
+        onclick="bridgeit.camera('cameraBtn','handleCam', {postURL:window.echoHub + 'camera-upload'});">Take a Photo</a>
         
     <fieldset id="currentPhoto">
         <div class="row">
@@ -43,7 +43,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
     }
 
     function handleCam(event)  {
-        console.log('handleCam: ' + event);
+        console.log('handleCam: ' + JSON.stringify(event));
         var text = event.value;
         if (event.preview)  {
             document.getElementById("photoThumbnail").setAttribute("src", event.preview);
@@ -65,11 +65,10 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
             var parent = photoLink.parentNode;
             parent.removeChild(photoLink);
             var img = document.createElement('img');
-            var src = window.echoHub + "/" + url;
-            img.setAttribute('src',  src);
+            img.setAttribute('src',  url);
             parent.appendChild(img);
             setTimeout(function () {
-                storePhoto(src);
+                storePhoto(url);
             },2000);
         }
     }
