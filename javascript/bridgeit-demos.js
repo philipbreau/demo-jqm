@@ -82,6 +82,14 @@ function resumePush()  {
        ice.push.connection.resumeConnection();
    }
 }
+function setMinContentHeight(){
+    var minContentHeight = $(window).height() - 100;
+    $("div[data-role='content']").each(function(idx, elem){
+        elem.style.minHeight = '' + minContentHeight + 'px';
+    });
+}
+window.addEventListener('onorientationchange', setMinContentHeight, false);
+
 
 document.addEventListener("webkitvisibilitychange", function () {
     if (document.webkitHidden)  {
