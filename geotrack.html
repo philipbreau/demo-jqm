@@ -11,7 +11,12 @@ title: GeoTrack
     </script>
     <h2>GeoTrack Location Tracking</h2>
     <fieldset class="desc">
-        <div class="row"><p class="normalText">Continual geolocation tracking with a simple line of JavaScript...</p></div>
+        <div class="row">
+            <p class="normalText">
+                Press the 'Start Tracking' button and have BridgeIt track your location. After tracking 
+                has started, you can continue with other activities and come back to see your track. 
+            </p>
+        </div>
         <div class="row">
 {% highlight javascript %}
 bridgeit.geoTrack('myId', callback, options);
@@ -19,8 +24,10 @@ bridgeit.geoTrack('myId', callback, options);
         </div>
     </fieldset>
     
-    <a id="track" type="button" class="btn"
-        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:1,_jguid:bridgeit.getId()}});">Start Tracking</a>
+    <a id="startTrackingBtn" type="button" class="btn"
+        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:0.3,_jguid:bridgeit.getId()}});">Start Tracking</a>
+    <a id="stopTrackingBtn" type="button" class="btn"
+        onclick="bridgeit.geoTrack('tracker','handleTrack', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'stop',_jguid:bridgeit.getId()}});">Stop Tracking</a>
 
     <div id="trackMapCanvas" style="height:200px"></div>
     <div id="trackMapOverlay" >
