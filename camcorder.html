@@ -7,7 +7,14 @@ title: Camcorder
     <h2>Native Video Recording</h2>
     <fieldset class="desc">
         <div class="row"><p class="normalText">Access the native video recording features with a simple line of JavaScript...</p></div>
-        <div class="row">
+        <div class="row shown-xs">
+{% highlight javascript %}
+bridgeit.camcorder('myId', 
+  callback, 
+  {postURL: '/upload'});
+{% endhighlight %}
+        </div>
+        <div class="row hidden-xs">
 {% highlight javascript %}
 bridgeit.camcorder('myId', callback, {postURL: '/upload'});
 {% endhighlight %}
@@ -15,7 +22,7 @@ bridgeit.camcorder('myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="camcorderBtn" type="button" class="btn"
-        onclick="bridgeit.camcorder('camcorderBtn','handleVideo', {postURL: window.echoHub + 'video-upload'});">Record a Video</a>
+        onclick="bridgeit.camcorder('camcorderBtn','onAfterVideoCapture', {postURL: window.echoHub + 'video-upload'});">Record a Video</a>
         
     <fieldset id="videoThumbnailField" style="display:none">
         <div class="row">
@@ -47,7 +54,7 @@ bridgeit.camcorder('myId', callback, {postURL: '/upload'});
         }
     }
 
-    function handleVideo(event)  {
+    function onAfterVideoCapture(event)  {
         console.log('handleVideo preview: ' + event.preview);
         if (event.preview)  {
             document.getElementById("videoThumbnail").setAttribute("src", event.preview);

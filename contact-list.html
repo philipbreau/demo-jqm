@@ -7,7 +7,13 @@ title: Contact List
     <h2>Native Contact List Access</h2>
     <fieldset class="desc">
         <div class="row"><p class="normalText">Access the device contact list with a simple line of JavaScript...</p></div>
-        <div class="row">
+        <div class="row shown-xs">
+{% highlight javascript %}
+bridgeit.fetchContact( 'myId', 
+  callback); 
+{% endhighlight %}
+        </div>
+        <div class="row hidden-xs">
 {% highlight javascript %}
 bridgeit.fetchContact( 'myId', callback); 
 {% endhighlight %}

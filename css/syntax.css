@@ -14,6 +14,10 @@
 	-webkit-border-radius:7px;
 	border-radius:7px;
 	text-shadow: none;
+	max-width: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch;
 }
 
 
@@ -23,7 +27,7 @@ code, pre {
 	margin: .5em 0 .5em 0;
 }
 .highlight code{
-	white-space: normal;
+	white-space: pre-wrap;
 }
 
 .highlight span{

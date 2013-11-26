@@ -79,9 +79,15 @@ title: Augmented Reality
     <h2>Augmented Reality</h2>
     <fieldset class="desc">
         <div class="row"><p class="normalText">Access an augmented world with a simple line of JavaScript...</p></div>
-        <div class="row">
+        <div class="row hidden-xs">
 {% highlight javascript %}
 bridgeit.augmentedReality( 'myId', callback, options);
+{% endhighlight %}
+        </div>
+        <div class="row shown-xs">
+{% highlight javascript %}
+bridgeit.augmentedReality( 
+  'myId', callback, options);
 {% endhighlight %}
         </div>
     </fieldset>

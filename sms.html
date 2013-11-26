@@ -7,7 +7,13 @@ title: SMS
     <h2>Native SMS</h2>
     <fieldset class="desc">
         <div class="row"><p class="normalText">Send an SMS with a simple line of JavaScript...</p></div>
-        <div class="row">
+        <div class="row shown-xs">
+{% highlight javascript %}
+bridgeit.sms(
+  '506-555-1212', 'message');
+{% endhighlight %}
+        </div>
+        <div class="row hidden-xs">
 {% highlight javascript %}
 bridgeit.sms('506-555-1212', 'message');
 {% endhighlight %}

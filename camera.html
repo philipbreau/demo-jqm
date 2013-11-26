@@ -7,7 +7,14 @@ title: Camera
     <h2>Native Camera Access</h2>
     <fieldset class="desc">
         <div class="row"><p class="normalText">Access the native device camera features with a simple line of JavaScript...</p></div>
-        <div class="row">
+        <div class="row shown-xs">
+{% highlight javascript %}
+bridgeit.camera( 'myId', 
+  callback, 
+  {postURL: '/upload'});
+{% endhighlight %}
+        </div>
+        <div class="row hidden-xs">
 {% highlight javascript %}
 bridgeit.camera( 'myId', callback, {postURL: '/upload'});
 {% endhighlight %}
@@ -15,7 +22,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="cameraBtn" type="button" class="btn"
-        onclick="bridgeit.camera('cameraBtn','handleCam', {postURL:window.echoHub + 'camera-upload'});">Take a Photo</a>
+        onclick="bridgeit.camera('cameraBtn','onAfterPhotoCapture', {postURL:window.echoHub + 'camera-upload'});">Take a Photo</a>
         
     <fieldset id="currentPhoto">
         <div class="row">
@@ -42,7 +49,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
         }
     }
 
-    function handleCam(event)  {
+    function onAfterPhotoCapture(event)  {
         console.log('handleCam: ' + JSON.stringify(event));
         var text = event.value;
         if (event.preview)  {
