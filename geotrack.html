@@ -25,7 +25,7 @@ bridgeit.geoTrack('myId', callback, options);
     </fieldset>
     
     <a id="startTrackingBtn" type="button" class="btn"
-        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStarted', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:0.3,_jguid:bridgeit.getId()}});">Start Tracking</a>
+        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStarted', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'continuous',duration:0.3,_jguid:bridgeit.getId()}});">Start Tracking</a>
     <a id="stopTrackingBtn" type="button" class="btn" style="display: none"
         onclick="bridgeit.geoTrack('tracker','onAfterTrackingStopped', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'stop',_jguid:bridgeit.getId()}});">
         Stop Tracking
