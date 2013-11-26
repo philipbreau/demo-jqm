@@ -97,7 +97,7 @@ bridgeit.augmentedReality(
     
     <script type="text/javascript">
 
-    function handleAug(event)  {
+    function onReturnFromAugmentedReality(event)  {
 
         var text = event.value;
         if (event.response)  {
@@ -128,7 +128,7 @@ bridgeit.augmentedReality(
                     margin: 10px;
                 }
             </style>
-            <button id="aug" class="overbutton" onclick="bridgeit.augmentedReality('_loc','handleAug', {postURL:(window.echoHub + 'echo/'), parameters: locations});">Reality View ... </button>
+            <button id="aug" class="overbutton" onclick="bridgeit.augmentedReality('_loc','onReturnFromAugmentedReality', {postURL:(window.echoHub + 'echo/'), parameters: locations});">Reality View ... </button>
         </div>
 
      <!--button onclick='google.maps.event.trigger(map, "resize");'>Fix Map Hack: Resize window or click this button</button-->

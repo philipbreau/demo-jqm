@@ -21,14 +21,15 @@ bridgeit.fetchContact( 'myId', callback);
     </fieldset>
     
     <a id="contactListBtn" type="button" class="btn"
-        onclick="bridgeit.fetchContact('contactListBtn','handleContact');">Fetch a Contact</a>
+        onclick="bridgeit.fetchContact('contactListBtn','onAfterSelectContact');">Fetch a Contact</a>
         
     <div id="contacts" class="panel">
     
     </div>
     <script type="text/javascript">
-    function handleContact(event)  {
+    function onAfterSelectContact(event)  {
         var text = unescape(event.value);
+        console.log('onAfterSelectContact: ' + text);
         var record = bridgeit.url2Object(text);
         var elem = document.getElementById("contacts");
         var fieldset = document.createElement('fieldset');
