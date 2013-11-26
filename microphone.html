@@ -9,13 +9,15 @@ title: Microphone
         <div class="row"><p class="normalText">Access the native audio recording features with a simple line of JavaScript...</p></div>
         <div class="row">
 {% highlight javascript %}
-bridgeit.microphone('myId', callback, {postURL: '/upload'});
+bridgeit.microphone('myId', 
+   callback, 
+   {postURL: '/upload'});
 {% endhighlight %}
         </div>
     </fieldset>
     
     <a id="micBtn" type="button" class="btn"
-        onclick="bridgeit.microphone('micBtn','handleAudio', {postURL: window.echoHub + 'audio-upload'});">Record Audio</a>
+        onclick="bridgeit.microphone('micBtn','onAfterAudioCapture', {postURL: window.echoHub + 'audio-upload'});">Record Audio</a>
         
     <fieldset>
         <div class="row"></div>
@@ -43,8 +45,8 @@ bridgeit.microphone('myId', callback, {postURL: '/upload'});
             }
         }
 
-        function handleAudio(event)  {
-            console.log('handleAudio: ' + event);
+        function onAfterAudioCapture(event)  {
+            console.log('onAfterAudioCapture: ' + event);
             var text = event.value;
             if (event.response)  {
                 var audioSrc = event.response;
@@ -61,7 +63,7 @@ bridgeit.microphone('myId', callback, {postURL: '/upload'});
                 audioElem.setAttribute('preload', 'auto');
                 audioElem.setAttribute('type', 'audio/mp3');
                 row.appendChild(audioElem);
-                storeAudio(src);
+                storeAudio(audioSrc);
 
                 var infoElem = document.createElement('div');
                 infoElem.innerHTML = "<b>Audio recorded:</b> " + simpleTime();
