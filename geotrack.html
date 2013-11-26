@@ -34,7 +34,6 @@ bridgeit.geoTrack('myId', callback, options);
 
     <h4>Location Updates</h4>
     <div id="geoTrackPushUpdates" class="geotrack-updates">
-
     </div>
 
     <div id="trackMapCanvas" style="height:200px"></div>
@@ -52,12 +51,23 @@ bridgeit.geoTrack('myId', callback, options);
     }
     bridgeit.addPushListener("geotrack-" + bridgeit.getId(), "onReceiveGeoTrackPush");
 
-    function addLocationUpdateRow(location){
+    function addLocationUpdateRow(geojson){
         if( location ){
-            console.log('geoTrack addLocationUpdateRow coordinates: ' + location.toString());
             var updatesDiv = document.getElementById('geoTrackPushUpdates');
             var updateDiv = document.createElement('div');
-            updateDiv.innerHTML = 'Location update ' + simpleTime() + location.toString();
+
+            var update = '';
+            if( geojson.properties && geojson.properties.time ){
+                var time = new Date(geojson.properties.time);
+                console.log('geotrack location time: ' + time);
+                update += time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
+            }
+            console.log('geoTrack addLocationUpdateRow coordinates: ' + JSON.stringify(geojson));
+            update += ' lat: ' + geojson.geometry.coordinates[1]
+                + ' lng: ' + geojson.geometry.coordinates[0];
+            
+            updateDiv.innerHTML = update;    
+                
             updatesDiv.insertBefore(updateDiv,updatesDiv.firstChild);
         }
     }
@@ -66,7 +76,6 @@ bridgeit.geoTrack('myId', callback, options);
         console.log('geoTrack onAfterTrackingStarted');
         document.getElementById('startTrackingBtn').style.display = 'none';
         document.getElementById('stopTrackingBtn').style.display = '';
-        addLocationUpdateRow();
     }
 
     function onAfterTrackingStopped(){
@@ -108,7 +117,6 @@ bridgeit.geoTrack('myId', callback, options);
     function updateMarkers()  {
         console.log('geoTrack updateMarkers');
         ajaxGet(window.echoHub + 'echofetch/geotrack-' + bridgeit.getId(), processMarkers);
-        addLocationUpdateRow();
     }
 
     function processMarkers(data)  {
@@ -123,7 +131,7 @@ bridgeit.geoTrack('myId', callback, options);
                 var coordinates = markerData[i].geometry.coordinates;
                 var location = new google.maps.LatLng(
                         coordinates[1], coordinates[0]);
-                addLocationUpdateRow(location);
+                addLocationUpdateRow(markerData[i]);
                 var markerColor = "#" + 
                         markerData[i].properties.jguid.substring(0,6);
 
