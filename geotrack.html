@@ -54,7 +54,7 @@ bridgeit.geoTrack('myId', callback, options);
 
     function addLocationUpdateRow(location){
         if( location ){
-            console.log('geoTrack addLocationUpdateRow coordinates: ' + location.toString();
+            console.log('geoTrack addLocationUpdateRow coordinates: ' + location.toString());
             var updatesDiv = document.getElementById('geoTrackPushUpdates');
             var updateDiv = document.createElement('div');
             updateDiv.innerHTML = 'Location update ' + simpleTime() + location.toString();
