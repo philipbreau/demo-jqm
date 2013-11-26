@@ -83,7 +83,7 @@ function resumePush()  {
    }
 }
 function setMinContentHeight(){
-    var minContentHeight = $(window).height() - 100;
+    var minContentHeight = $(window).height() - 80;
     $("div[data-role='content']").each(function(idx, elem){
         elem.style.minHeight = '' + minContentHeight + 'px';
     });
