@@ -53,11 +53,13 @@ bridgeit.geoTrack('myId', callback, options);
     bridgeit.addPushListener("geotrack-" + bridgeit.getId(), "onReceiveGeoTrackPush");
 
     function addLocationUpdateRow(location){
-        console.log('geoTrack addLocationUpdateRow coordinates: ' + location.toString());
-        var updatesDiv = document.getElementById('geoTrackPushUpdates');
-        var updateDiv = document.createElement('div');
-        updateDiv.innerHTML = 'Location update ' + simpleTime() + location.toString();
-        updatesDiv.insertBefore(updateDiv,updatesDiv.firstChild);
+        if( location ){
+            console.log('geoTrack addLocationUpdateRow coordinates: ' + location.toString();
+            var updatesDiv = document.getElementById('geoTrackPushUpdates');
+            var updateDiv = document.createElement('div');
+            updateDiv.innerHTML = 'Location update ' + simpleTime() + location.toString();
+            updatesDiv.insertBefore(updateDiv,updatesDiv.firstChild);
+        }
     }
 
     function onAfterTrackingStarted()  {
