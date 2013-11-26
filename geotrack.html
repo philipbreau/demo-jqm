@@ -34,6 +34,21 @@ bridgeit.geoTrack('myId', callback, options);
 
     <h4>Location Updates</h4>
     <div id="geoTrackPushUpdates" class="geotrack-updates">
+        <table id="geoTrackPushUpdatesHdr" class="hdr">
+            <thead>
+                <th>Time</th><th>Latitude</th><th>Longitude</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <div class="data">
+            <table id="geoTrackPushUpdatesTbl">
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div id="trackMapCanvas" style="height:200px"></div>
@@ -53,22 +68,29 @@ bridgeit.geoTrack('myId', callback, options);
 
     function addLocationUpdateRow(geojson){
         if( location ){
-            var updatesDiv = document.getElementById('geoTrackPushUpdates');
-            var updateDiv = document.createElement('div');
-
-            var update = '';
+            var updatesTbl = document.getElementById('geoTrackPushUpdatesTbl');
+            var updateRow = updatesTbl.insertRow(0);
+            
+            var timeCell = updateRow.insertCell(0);
             if( geojson.properties && geojson.properties.time ){
                 var time = new Date(geojson.properties.time);
+                var hrs = time.getHours();
+                if( hrs <  10){ hrs = '0'+hrs}
+                var mins = time.getMinutes();
+                if( mins < 10){ mins = '0'+mins}
+                var secs = time.getSeconds();
+                if( secs < 10){ secs = '0'+secs}
                 console.log('geotrack location time: ' + time);
-                update += time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
+                timeCell.innerHTML = '<span>' + hrs + ':' + mins + ':' + secs + '</span>';
             }
-            console.log('geoTrack addLocationUpdateRow coordinates: ' + JSON.stringify(geojson));
-            update += ' lat: ' + geojson.geometry.coordinates[1]
-                + ' lng: ' + geojson.geometry.coordinates[0];
             
-            updateDiv.innerHTML = update;    
-                
-            updatesDiv.insertBefore(updateDiv,updatesDiv.firstChild);
+            console.log('geoTrack addLocationUpdateRow coordinates: ' + JSON.stringify(geojson));
+
+            var latCell = updateRow.insertCell(1);
+            latCell.innerHTML = '<span>' + geojson.geometry.coordinates[1] + '</span>';
+
+            var lngCell = updateRow.insertCell(2);
+            lngCell.innerHTML = '<span>' + geojson.geometry.coordinates[0] + '</span>'
         }
     }
 

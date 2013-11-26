@@ -426,12 +426,36 @@ span.ellipsis{
 }
 .geotrack-updates{
     height:80px;
-    overflow-y:scroll;
     padding: 2px;
     border: 1px solid #BBB;
     margin-bottom: 10px;
     font-size: 11px;
     color: blue;
+    overflow: hidden;
+    text-align: left;
+}
+.geotrack-updates table{
+    width: 100%;
+}
+.geotrack-updates table td:nth-child(1), .geotrack-updates table th:nth-child(1){
+    width: 20%;
+    max-width: 20%;
+}
+.geotrack-updates table td:nth-child(2), .geotrack-updates table td:nth-child(3),
+.geotrack-updates table th:nth-child(2), .geotrack-updates table th:nth-child(3){
+    width: 40%;
+    max-width: 40%;
+}
+.geotrack-updates .data{
+    overflow-y:scroll;
+    height: 60px;
+}
+.geotrack-updates .hdr{
+    height: 20px;
+}
+.geotrack-updates span{
+    display: inline-block;
+    overflow: hidden;
 }
 .geotracking{
     font-size: 25px;
