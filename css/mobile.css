@@ -449,20 +449,18 @@ span.ellipsis{
     border-spacing:0;
     border-collapse:collapse;
 }
+.geotrack-updates table td, .geotrack-updates table{
+    border: 1px solid #EFEFEF;
+}
 .geotrack-updates table td, .geotrack-updates table th{
-    padding: 0; 
+    padding: 1px; 
 }
-.geotrack-updates table td:nth-child(1), .geotrack-updates table th:nth-child(1){
-    width: 20%;
-    max-width: 20%;
-}
-.geotrack-updates table td:nth-child(2), .geotrack-updates table td:nth-child(3),
-.geotrack-updates table th:nth-child(2), .geotrack-updates table th:nth-child(3){
-    width: 40%;
-    max-width: 40%;
+.geotrack-updates table td, .geotrack-updates table th{
+    width: 33%;
+    max-width: 33%;
 }
 .geotrack-updates .data{
-    overflow-y:scroll;
+    overflow-y:auto;
     height: 60px;
 }
 .geotrack-updates .hdr{

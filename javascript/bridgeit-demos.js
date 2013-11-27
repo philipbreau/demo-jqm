@@ -60,9 +60,17 @@ function ajaxGet(url,cb){
 }
 function simpleTime()  {
     var now = new Date();
-    return now.getHours() + ":" + 
-    ("00" + now.getMinutes()).slice(-2) + ":" +
-    ("00" + now.getSeconds()).slice(-2);
+    return simpleTimeFromDate(now);
+}
+function simpleTimeFromDate(date){
+    return date.getHours() + ":" + 
+    ("00" + date.getMinutes()).slice(-2) + ":" +
+    ("00" + date.getSeconds()).slice(-2);
+}
+var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function dateTimeStringFromDate(date)  {
+    var res = simpleTimeFromDate(date);
+    return res + ' ' + months[date.getMonth()] + ' ' + date.getDate();
 }
 function hasClassList(){
     return "document" in self && (

@@ -73,21 +73,17 @@ bridgeit.geoTrack('myId', callback, options);
     bridgeit.addPushListener("geotrack-" + bridgeit.getId(), "onReceiveGeoTrackPush");
 
     function addLocationUpdateRow(geojson){
-        if( location ){
+        console.log('addLocationUpdateRow: ' + geojson);
+        if( geojson ){
             var updatesTbl = document.getElementById('geoTrackPushUpdatesTbl');
             var updateRow = updatesTbl.insertRow(0);
             
             var timeCell = updateRow.insertCell(0);
             if( geojson.properties && geojson.properties.time ){
                 var time = new Date(geojson.properties.time);
-                var hrs = time.getHours();
-                if( hrs <  10){ hrs = '0'+hrs}
-                var mins = time.getMinutes();
-                if( mins < 10){ mins = '0'+mins}
-                var secs = time.getSeconds();
-                if( secs < 10){ secs = '0'+secs}
-                console.log('geotrack location time: ' + time);
-                timeCell.innerHTML = '<span>' + hrs + ':' + mins + ':' + secs + '</span>';
+                console.log('geotrack location time: ' + timeString);
+                var timeString = dateTimeStringFromDate(time);
+                timeCell.innerHTML = '<span>' + timeString + '</span>';
             }
             
             console.log('geoTrack addLocationUpdateRow coordinates: ' + JSON.stringify(geojson));
@@ -153,15 +149,21 @@ bridgeit.geoTrack('myId', callback, options);
             var markerData = JSON.parse(data);
             var len = markerData.length;
             var markersPlaced = false;
+            var locations = {};
+            var jguids = [];
             for (var i = 0; i < len; i++) {
                 //google maps follows english usage LatLang
                 //rather than standard x,y coordinate longitude,latitude
                 var coordinates = markerData[i].geometry.coordinates;
                 var location = new google.maps.LatLng(
                         coordinates[1], coordinates[0]);
+                if( jguids.indexOf(markerData[i].properties.jguid) < 0 ){
+                    jguids.push(markerData[i].properties.jguid);
+                    locations[markerData[i].properties.jguid] = [];
+                }
+                locations[markerData[i].properties.jguid].push(location);
                 addLocationUpdateRow(markerData[i]);
-                var markerColor = "#" + 
-                        markerData[i].properties.jguid.substring(0,6);
+                
 
                 //check if provided marker is too close to existing marker
                 var existLen = geoTrackMapMarkers.length;
@@ -179,12 +181,21 @@ bridgeit.geoTrack('myId', callback, options);
                 }
 
                 markersPlaced = true;
+                var markerColor = "#" + 
+                        markerData[i].properties.jguid.substring(0,6);
+                var currMarkerColor = markerColor;
+                if( i == 0 ){
+                    currMarkerColor = 'green';
+                }
+                else if( i == len-1){
+                    currMarkerColor = 'red';
+                }
                 var marker = new google.maps.Marker({
                     position: location,
                     icon: {
-                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                        strokeColor: markerColor,
-                        scale: 3
+                        path: google.maps.SymbolPath.CIRCLE,
+                        strokeColor: currMarkerColor,
+                        scale: 2
                     },
                     map: geoTrackMap
                 });
@@ -194,6 +205,7 @@ bridgeit.geoTrack('myId', callback, options);
                     coordinates[1].toFixed(2) + " " +
                     coordinates[2].toFixed(2) + "m  ";
             }
+
             if (markersPlaced)  {
                 var existLen = geoTrackMapMarkers.length;
                 var bounds = new google.maps.LatLngBounds();
@@ -205,6 +217,18 @@ bridgeit.geoTrack('myId', callback, options);
                 if( existLen == 1 ){
                     geoTrackMap.setZoom(10);
                 }
+                for( var k = 0 ; k < jguids.length ; k++ ){
+                    var markerColor = "#" + jguids[k].substring(0,6);
+                    var path = new google.maps.Polyline({
+                        path: locations[jguids[k]],
+                        geodesic: true,
+                        strokeColor: markerColor,
+                        strokeOpacity: 0.5,
+                        strokeWeight: 1
+                      });
+                      path.setMap(geoTrackMap);
+                }
+                
             }
             
         }
