@@ -91,7 +91,9 @@ function resumePush()  {
    }
 }
 function setMinContentHeight(){
-    var minContentHeight = $(window).height() - 80;
+    var bufferHeight = 
+        (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ? 50 : 80);
+    var minContentHeight = $(window).height() - bufferHeight;
     $("div[data-role='content']").each(function(idx, elem){
         elem.style.minHeight = '' + minContentHeight + 'px';
     });
