@@ -79,8 +79,15 @@ bridgeit.geoTrack('myId', callback, options);
             var updateRow = updatesTbl.insertRow(0);
             
             var timeCell = updateRow.insertCell(0);
+            var timeProp;
             if( geojson.properties && geojson.properties.time ){
-                var time = new Date(geojson.properties.time);
+                timeProp = geojson.properties.time;
+            }
+            else if( geojson.properties && geojson.properties.timestamp ){
+                timeProp = geojson.properties.timestamp;
+            }
+            if( timeProp ){
+                var time = new Date(timeProp);
                 console.log('geotrack location time: ' + timeString);
                 var timeString = dateTimeStringFromDate(time);
                 timeCell.innerHTML = '<span>' + timeString + '</span>';

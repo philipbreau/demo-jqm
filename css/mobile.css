@@ -436,8 +436,6 @@ span.ellipsis{
 }
 .geotrack-updates{
     height:80px;
-    padding: 2px;
-    border: 1px solid #BBB;
     margin-bottom: 10px;
     font-size: 11px;
     color: blue;
@@ -449,7 +447,7 @@ span.ellipsis{
     border-spacing:0;
     border-collapse:collapse;
 }
-.geotrack-updates table td, .geotrack-updates table{
+.geotrack-updates table td, .geotrack-updates table, .geotrack-updates .data{
     border: 1px solid #EFEFEF;
 }
 .geotrack-updates table td, .geotrack-updates table th{
