@@ -23,22 +23,26 @@ bridgeit.fetchContact( 'myId', callback);
     <a id="contactListBtn" type="button" class="btn"
         onclick="bridgeit.fetchContact('contactListBtn','onAfterSelectContact');">Fetch a Contact</a>
         
-    <div id="contacts" class="panel">
-    
-    </div>
+    <div id="contacts"></div>
+
     <script type="text/javascript">
     function onAfterSelectContact(event)  {
         var text = unescape(event.value);
         console.log('onAfterSelectContact: ' + text);
         var record = bridgeit.url2Object(text);
-        var elem = document.getElementById("contacts");
-        var fieldset = document.createElement('fieldset');
+        var elem = document.getElementById('contacts');
+        var ul = document.createElement('ul');
+        ul.setAttribute('data-role', 'listview');
+        ul.setAttribute('data-inset', 'true');
+        ul.setAttribute('data-divider-theme','d');
         var recordHTML = '';
         for (var key in record)  {
-            recordHTML += "<div class='row'><span class='ellipsis'><strong>" + key + ": </strong>" + record[key] + "</span></div>";  
+            recordHTML += "<li><span class='ellipsis'><strong>" 
+            + key + ": </strong>" + record[key] + "</span></li>";
         }
-        fieldset.innerHTML = recordHTML;
-        elem.insertBefore(fieldset, elem.firstChild);
+        ul.innerHTML = recordHTML;
+        $(elem).prepend(ul);
+        $('#contacts ul:first-child').listview().listview('refresh');
     }
     </script>
 </div>
