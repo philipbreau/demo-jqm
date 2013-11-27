@@ -21,28 +21,31 @@ bridgeit.fetchContact( 'myId', callback);
     </fieldset>
     
     <a id="contactListBtn" type="button" class="btn"
-        onclick="bridgeit.fetchContact('contactListBtn','onAfterSelectContact');">Fetch a Contact</a>
+        onclick="bridgeit.fetchContact('contactListBtn','onAfterReturnFromContacts');">Fetch a Contact</a>
         
     <div id="contacts"></div>
 
     <script type="text/javascript">
-    function onAfterSelectContact(event)  {
-        var text = unescape(event.value);
-        console.log('onAfterSelectContact: ' + text);
-        var record = bridgeit.url2Object(text);
-        var elem = document.getElementById('contacts');
-        var ul = document.createElement('ul');
-        ul.setAttribute('data-role', 'listview');
-        ul.setAttribute('data-inset', 'true');
-        ul.setAttribute('data-divider-theme','d');
-        var recordHTML = '';
-        for (var key in record)  {
-            recordHTML += "<li><span class='ellipsis'><strong>" 
-            + key + ": </strong>" + record[key] + "</span></li>";
+    function onAfterReturnFromContacts(event)  {
+        if( event.value ){
+            var text = unescape(event.value);
+            console.log('onAfterReturnFromContacts: ' + text);
+
+            var record = bridgeit.url2Object(text);
+            var elem = document.getElementById('contacts');
+            var ul = document.createElement('ul');
+            ul.setAttribute('data-role', 'listview');
+            ul.setAttribute('data-inset', 'true');
+            ul.setAttribute('data-divider-theme','d');
+            var recordHTML = '';
+            for (var key in record)  {
+                recordHTML += "<li><span class='ellipsis'><strong>" 
+                + key + ": </strong>" + record[key] + "</span></li>";
+            }
+            ul.innerHTML = recordHTML;
+            $(elem).prepend(ul);
+            $('#contacts ul:first-child').listview().listview('refresh');
         }
-        ul.innerHTML = recordHTML;
-        $(elem).prepend(ul);
-        $('#contacts ul:first-child').listview().listview('refresh');
     }
     </script>
 </div>
