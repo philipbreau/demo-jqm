@@ -11,7 +11,8 @@
         <script type="text/javascript">
         setMinContentHeight();
         $(document).bind('pageshow', setMinContentHeight);
-        $(document).bind('onorientationchange', setMinContentHeight);
+        $(window).bind('orientationchange', setMinContentHeight);
+        $(window).bind('resize', setMinContentHeight);
         </script>
     </div>
     <div id="getBridgeItPopup" style="opacity: 0;display:none;" class="ui-body-c">
