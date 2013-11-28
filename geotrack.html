@@ -96,10 +96,10 @@ bridgeit.geoTrack('myId', callback, options);
             console.log('geoTrack addLocationUpdateRow coordinates: ' + JSON.stringify(geojson));
 
             var latCell = updateRow.insertCell(1);
-            latCell.innerHTML = '<span>' + geojson.geometry.coordinates[1] + '</span>';
+            latCell.innerHTML = '<span>' + geojson.geometry.coordinates[1].toFixed(4) + '</span>';
 
             var lngCell = updateRow.insertCell(2);
-            lngCell.innerHTML = '<span>' + geojson.geometry.coordinates[0] + '</span>'
+            lngCell.innerHTML = '<span>' + geojson.geometry.coordinates[0].toFixed(4) + '</span>'
         }
     }
 
