@@ -24,6 +24,12 @@ bridgeit.sms('506-555-1212', 'message');
     <input id="smsmessage" type="text" class="ui-input-text" style="max-width: 300px;" placeholder="Message" value="BridgeIt: phone/web bridge" />
 
     <a id="smsBtn" type="button" class="btn"
-        onclick="bridgeit.sms(document.getElementById('smsnumber').value, document.getElementById('smsmessage').value);">Send an SMS</a>
+        onclick="if( !validateNumber() ){ alert('Please enter a number for the SMS.'); } else bridgeit.sms(document.getElementById('smsnumber').value, document.getElementById('smsmessage').value);">Send an SMS</a>
         
+    <script type="text/javascript">
+    function validateNumber(){
+        var elem = document.getElementById('smsnumber');
+        return elem.value != null && elem.value.length > 6;
+    }
+    </script>
 </div>
