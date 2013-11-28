@@ -1,6 +1,7 @@
 window.echoHub = 'http://api.bridgeit.mobi/echo/';
 window.pushHub = 'http://api.bridgeit.mobi/push/';
 window.apiKey = '197EBF31-40CD-444F-826F-10158A0F3581';
+bridgeit.overrideAugmentedRealityAlphaLevel = true; //allow Augmented Reality on Android for the public demos
 
 bridgeit.launchFailed = function(){
     document.getElementById('appStoreLink').href = bridgeit.appStoreURL();
