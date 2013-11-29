@@ -460,8 +460,12 @@ span.ellipsis{
     padding: 1px; 
 }
 .geotrack-updates table td, .geotrack-updates table th{
-    width: 33%;
-    max-width: 33%;
+    width: 21%;
+    max-width: 21%;
+}
+.geotrack-updates table td:first-child, .geotrack-updates table th:first-child{
+    width: 37%;
+    max-width: 37%;
 }
 .geotrack-updates .data{
     overflow:auto;

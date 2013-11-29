@@ -42,7 +42,7 @@ bridgeit.geoTrack('myId', callback, options);
     <div id="geoTrackPushUpdates" class="geotrack-updates">
         <table id="geoTrackPushUpdatesHdr" class="hdr">
             <thead>
-                <th>Time</th><th>Latitude</th><th>Longitude</th>
+                <th>Time</th><th>Latitude</th><th>Longitude</th><th>Accuracy</th>
             </thead>
             <tbody>
 
@@ -100,6 +100,9 @@ bridgeit.geoTrack('myId', callback, options);
 
             var lngCell = updateRow.insertCell(2);
             lngCell.innerHTML = '<span>' + geojson.geometry.coordinates[0].toFixed(4) + '</span>'
+
+            var accuracyCell = updateRow.insertCell(3);
+            accuracyCell.innerHTML = '<span>' + geojson.properties.accuracy.toFixed(0) + 'm</span>'
         }
     }
 
