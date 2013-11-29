@@ -449,6 +449,10 @@ span.ellipsis{
     overflow: hidden;
     text-align: left;
 }
+.geotrack-updates .active{
+    color: red;
+    font-weight: bold;
+}
 .geotrack-updates table{
     width: 100%;
     border-spacing:0;

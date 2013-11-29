@@ -94,10 +94,12 @@ bridgeit.geoTrack('myId', callback, options);
             }
 
             var latCell = updateRow.insertCell(1);
-            latCell.innerHTML = '<span>' + geojson.geometry.coordinates[1].toFixed(4) + '</span>';
+            var lat = geojson.geometry.coordinates[1];
+            latCell.innerHTML = '<span>' + lat.toFixed(4) + '</span>';
 
             var lngCell = updateRow.insertCell(2);
-            lngCell.innerHTML = '<span>' + geojson.geometry.coordinates[0].toFixed(4) + '</span>';
+            var lng = geojson.geometry.coordinates[0];
+            lngCell.innerHTML = '<span>' + lng.toFixed(4) + '</span>';
 
             var accuracyCell = updateRow.insertCell(3);
             if (geojson.properties.accuracy)  {
@@ -105,6 +107,15 @@ bridgeit.geoTrack('myId', callback, options);
             } else {
                 accuracyCell.innerHTML = '<span></span>';
             }
+
+            updateRow.addEventListener('click', function(){ 
+                moveCursorMarker(lat,lng); 
+                var prev = document.querySelector('.geotrack-updates .active');
+                if( prev ){
+                    prev.classList.remove('active');
+                }
+                this.classList.add('active');
+            }, false);
         }
     }
 
@@ -194,6 +205,20 @@ bridgeit.geoTrack('myId', callback, options);
             color += letters[Math.round(Math.random() * 15)];
         }
         return color;
+    }
+    var cursorMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(0, 0),
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            strokeColor: '#FF0000',
+            scale: 5
+        }
+    });
+
+    function moveCursorMarker(lat,lng){
+        cursorMarker.setPosition(new google.maps.LatLng(lat,lng));
+        cursorMarker.setMap(geoTrackMap);
+        console.log('moved cursorMarker to ' + lat + ',' + lng);
     }
 
     function processMarkers(data)  {
