@@ -72,8 +72,12 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
         document.getElementById('pushBtn').firstChild.firstChild.innerText = text;
     }
 
-    bridgeit.usePushService( window.pushHub, window.apiKey);
-    bridgeit.addPushListener(bridgeit.getId(), 'handlePush');
+    var cloudPushReady;
     
+    if (!cloudPushReady)  {
+        bridgeit.usePushService( window.pushHub, window.apiKey);
+        bridgeit.addPushListener(bridgeit.getId(), 'handlePush');
+        cloudPushReady = true;
+    }
     </script>
 </div>
