@@ -1,6 +1,7 @@
 window.echoHub = 'http://api.bridgeit.mobi/echo/';
 window.pushHub = 'http://api.bridgeit.mobi/push/';
 window.apiKey = '197EBF31-40CD-444F-826F-10158A0F3581';
+bridgeit.overrideAugmentedRealityAlphaLevel = true; //allow Augmented Reality on Android for the public demos
 
 bridgeit.launchFailed = function(){
     document.getElementById('appStoreLink').href = bridgeit.appStoreURL();
@@ -79,17 +80,6 @@ function hasClassList(){
         );
 }
 
-//move pause and resume to ICEpush when ready
-function pausePush()  {
-   if (window.ice && ice.push)  {
-       ice.push.connection.pauseConnection();
-   }
-}
-function resumePush()  {
-   if (window.ice && ice.push)  {
-       ice.push.connection.resumeConnection();
-   }
-}
 function setMinContentHeight(){
     var bufferHeight = 
         (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ? 50 : 80);
@@ -99,20 +89,3 @@ function setMinContentHeight(){
     });
 }
 window.addEventListener('onorientationchange', setMinContentHeight, false);
-
-
-document.addEventListener("webkitvisibilitychange", function () {
-    if (document.webkitHidden)  {
-        pausePush();
-    } else {
-        resumePush();
-    }
-});
-
-document.addEventListener("visibilitychange", function () {
-    if (document.hidden)  {
-        pausePush();
-    } else {
-        resumePush();
-    }
-});
