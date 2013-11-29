@@ -4,8 +4,48 @@ layout: demo
 title: Augmented Reality
 ---
 <div onfocus="setTimeout(function(){google.maps.event.trigger(map, 'resize')},1000);" >
+ 
+    <h2>Augmented Reality</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">Access an augmented world with a simple line of JavaScript...</p></div>
+        <div class="row hidden-xs">
+{% highlight javascript %}
+bridgeit.augmentedReality( 'myId', callback, options);
+{% endhighlight %}
+        </div>
+        <div class="row shown-xs">
+{% highlight javascript %}
+bridgeit.augmentedReality( 
+  'myId', callback, options);
+{% endhighlight %}
+        </div>
+    </fieldset>
+                    
     <script type="text/javascript">
-      $(document).bind('pagechange', function() {
+
+    function onReturnFromAugmentedReality(event)  {
+        var text = event.value;
+        if (event.response)  {
+            var len = "Aug".length;
+            var responseLoc = "" + JSON.parse(event.response)["_loc"][0];
+            console.log("AR selected " + responseLoc);
+            document.getElementById("selected")
+                    .setAttribute("src",
+                    locations[responseLoc].split(",")[4]);
+        }
+    }
+
+    function validateMarkersPlaced(){
+        if( markerCounter == 0 ){
+            alert('First, tap on the map a few times around your location to add some markers');
+            return false;
+        }
+        return true;
+    }
+
+    var markerCounter = 0;
+
+    $(document).bind('pagechange', function() {
         if ("augmentedreality" === $.mobile.activePage.attr('id')) {
             if (null == map)  {
                 initialize();
@@ -15,7 +55,6 @@ title: Augmented Reality
       });
       var map = null;
       var marker = null;
-      var counter = 1;
       var locations = {
         "TourEiffel":"48.858222,2.2945,,,icons/eiffel.png",
         "TajMahal":"27.174799,78.042111,,,icons/tajmahal.png",
@@ -32,23 +71,20 @@ title: Augmented Reality
             map = new google.maps.Map(document
                     .getElementById('map-canvas'), mapOptions);
 
-            var overlay = document.getElementById('overlay');
-            map.controls[google.maps.ControlPosition.RIGHT_TOP]
-                    .push(overlay);
-
-        marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
           position: map.getCenter(),
           map: map,
           title: 'You are here',
         });
 
         var iconBase = (Math.round(Math.random() * 5) + 1);
+        var iconNames = ['Restaurant','Hospital', 'Service Station', 'Residence', 'BridgeIt'];
 
         google.maps.event.addListener(map, 'click', function(event) {
-            var iconNum = ((iconBase + (counter++)) % 5) + 1;
-            var markerName = "Aug" + iconNum + (counter++);
-            var iconFile = "icons/icon" +
-                    iconNum + ".png";
+            var iconNum = ((iconBase + (markerCounter++)) % 5) + 1;
+            var markerName = iconNames[iconNum-1];
+            console.log('markername:' + markerName);
+            var iconFile = "icons/icon" + iconNum + ".png";
             var marker = new google.maps.Marker({
               position: event.latLng,
               map: map,
@@ -70,45 +106,9 @@ title: Augmented Reality
                     map.setCenter(
                             new google.maps.LatLng(lat,lon) );
             });
-
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-
-    <h2>Augmented Reality</h2>
-    <fieldset class="desc">
-        <div class="row"><p class="normalText">Access an augmented world with a simple line of JavaScript...</p></div>
-        <div class="row hidden-xs">
-{% highlight javascript %}
-bridgeit.augmentedReality( 'myId', callback, options);
-{% endhighlight %}
-        </div>
-        <div class="row shown-xs">
-{% highlight javascript %}
-bridgeit.augmentedReality( 
-  'myId', callback, options);
-{% endhighlight %}
-        </div>
-    </fieldset>
-                
-    <fieldset id="arImages" class="media">
-    </fieldset>
-    
-    <script type="text/javascript">
-
-    function onReturnFromAugmentedReality(event)  {
-
-        var text = event.value;
-        if (event.response)  {
-            var len = "Aug".length;
-            var responseLoc = "" + JSON.parse(event.response)["_loc"][0];
-            console.log("AR selected " + responseLoc);
-            document.getElementById("selected")
-                    .setAttribute("src",
-                    locations[responseLoc].split(",")[4]);
-        }
-    }
 
     </script>
     
@@ -116,20 +116,9 @@ bridgeit.augmentedReality(
         <div class="row"><p class="normalText">Tap the map to add location markers, and then view them in the Augmented Reality view, by clicking on the 'Reality View..' button on the map.</p></div>
     </fieldset>
 
-        <div id="map-canvas" style="margin: 0 0 20px 0;height:380px;"></div>
-      
-        <div id="overlay" >
-            <style>
-                .overbutton {
-                    height: 50px;
-                    line-height : 50px;
-                    background-color: white;
-                    font-weight: bold;
-                    margin: 10px;
-                }
-            </style>
-            <button id="aug" class="overbutton" onclick="bridgeit.augmentedReality('_loc','onReturnFromAugmentedReality', {postURL:(window.echoHub + 'echo/'), parameters: locations});">Reality View ... </button>
-        </div>
+    <a type="button" class="btn" id="aug" class="overbutton" onclick="if( validateMarkersPlaced() ) bridgeit.augmentedReality('_loc','onReturnFromAugmentedReality', {postURL:(window.echoHub + 'echo/'), 'locations': locations});">Enter Augmented Reality ... </a>
+
+    <div id="map-canvas" style="margin: 0 0 20px 0;height:380px;"></div>
 
      <!--button onclick='google.maps.event.trigger(map, "resize");'>Fix Map Hack: Resize window or click this button</button-->
         
