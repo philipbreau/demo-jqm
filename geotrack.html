@@ -31,9 +31,9 @@ bridgeit.geoTrack('myId', callback, options);
     </fieldset>
     
     <a id="startTrackingBtn" type="button" class="btn"
-        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStarted', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'significant',duration:0.3,_jguid:bridgeit.getId()}});">Start Tracking</a>
+        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStarted', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), strategy:'significant',duration:0.3,_jguid:bridgeit.getId()});">Start Tracking</a>
     <a id="stopTrackingBtn" type="button" class="btn" style="display: none"
-        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStopped', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), parameters: {strategy:'stop',_jguid:bridgeit.getId()}});">
+        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStopped', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), strategy:'stop',_jguid:bridgeit.getId()});">
         Stop Tracking
         <i class="icon-gear icon-spin geotracking"></i>
     </a>
@@ -157,18 +157,23 @@ bridgeit.geoTrack('myId', callback, options);
             var len = markerData.length;
             var markersPlaced = false;
             var locations = {};
-            var jguids = [];
+            var locationKeys = [];
             for (var i = 0; i < len; i++) {
+                
                 //google maps follows english usage LatLang
                 //rather than standard x,y coordinate longitude,latitude
                 var coordinates = markerData[i].geometry.coordinates;
                 var location = new google.maps.LatLng(
                         coordinates[1], coordinates[0]);
-                if( jguids.indexOf(markerData[i].properties.jguid) < 0 ){
-                    jguids.push(markerData[i].properties.jguid);
-                    locations[markerData[i].properties.jguid] = [];
+                var locationKey = markerData[i].properties.jguid;
+                if( !locationKey ){
+                    locationKey = '999999'; //when no jguid available just use medium gray
                 }
-                locations[markerData[i].properties.jguid].push(location);
+                if( locationKeys.indexOf(locationKey) < 0 ){
+                    locationKeys.push(locationKey);
+                    locations[locationKey] = [];
+                }
+                locations[locationKey].push(location);
                 addLocationUpdateRow(markerData[i]);
                 
 
@@ -188,8 +193,7 @@ bridgeit.geoTrack('myId', callback, options);
                 }
 
                 markersPlaced = true;
-                var markerColor = "#" + 
-                        markerData[i].properties.jguid.substring(0,6);
+                var markerColor = "#" + locationKey.substring(0,6);
                 var currMarkerColor = markerColor;
                 if( i == 0 ){
                     currMarkerColor = 'green';
@@ -224,10 +228,10 @@ bridgeit.geoTrack('myId', callback, options);
                 if( existLen == 1 ){
                     geoTrackMap.setZoom(10);
                 }
-                for( var k = 0 ; k < jguids.length ; k++ ){
-                    var markerColor = "#" + jguids[k].substring(0,6);
+                for( var k = 0 ; k < locationKeys.length ; k++ ){
+                    var markerColor = "#" + locationKeys[k].substring(0,6);
                     var path = new google.maps.Polyline({
-                        path: locations[jguids[k]],
+                        path: locations[locationKeys[k]],
                         geodesic: true,
                         strokeColor: markerColor,
                         strokeOpacity: 0.5,
