@@ -64,13 +64,19 @@ bridgeit.geoTrack('myId', callback, options);
     <script type="text/javascript">
     window.geoTracking = false;
     
-    bridgeit.usePushService( window.pushHub, window.apiKey);
+    var geoPushReady;
+    
+    if (!geoPushReady)  {
+        bridgeit.usePushService( window.pushHub, window.apiKey);
+        bridgeit.addPushListener("geotrack-" + bridgeit.getId(),
+                "onReceiveGeoTrackPush");
+        geoPushReady = true;
+    }
 
     function onReceiveGeoTrackPush(){
         console.log("geotrack Push received");
         updateMarkers();
     }
-    bridgeit.addPushListener("geotrack-" + bridgeit.getId(), "onReceiveGeoTrackPush");
 
     function addLocationUpdateRow(geojson){
         console.log('addLocationUpdateRow: ' + geojson);
@@ -99,10 +105,14 @@ bridgeit.geoTrack('myId', callback, options);
             latCell.innerHTML = '<span>' + geojson.geometry.coordinates[1].toFixed(4) + '</span>';
 
             var lngCell = updateRow.insertCell(2);
-            lngCell.innerHTML = '<span>' + geojson.geometry.coordinates[0].toFixed(4) + '</span>'
+            lngCell.innerHTML = '<span>' + geojson.geometry.coordinates[0].toFixed(4) + '</span>';
 
             var accuracyCell = updateRow.insertCell(3);
-            accuracyCell.innerHTML = '<span>' + geojson.properties.accuracy.toFixed(0) + 'm</span>'
+            if (geojson.properties.accuracy)  {
+                accuracyCell.innerHTML = '<span>' + geojson.properties.accuracy.toFixed(0) + 'm</span>';
+            } else {
+                accuracyCell.innerHTML = '<span></span>';
+            }
         }
     }
 
@@ -177,7 +187,6 @@ bridgeit.geoTrack('myId', callback, options);
                     locations[locationKey] = [];
                 }
                 locations[locationKey].push(location);
-                addLocationUpdateRow(markerData[i]);
                 
 
                 //check if provided marker is too close to existing marker
@@ -213,6 +222,7 @@ bridgeit.geoTrack('myId', callback, options);
                     },
                     map: geoTrackMap
                 });
+                addLocationUpdateRow(markerData[i]);
                 geoTrackMapMarkers.push(marker);
                 document.getElementById("trackMapDetail").innerHTML =
                     coordinates[0].toFixed(2) + "," +
