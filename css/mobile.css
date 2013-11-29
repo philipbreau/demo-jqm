@@ -444,7 +444,8 @@ span.ellipsis{
     height:80px;
     margin-bottom: 10px;
     font-size: 11px;
-    color: blue;
+    color: black;
+    text-shadow: none;
     overflow: hidden;
     text-align: left;
 }

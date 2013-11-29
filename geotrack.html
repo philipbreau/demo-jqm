@@ -79,27 +79,19 @@ bridgeit.geoTrack('myId', callback, options);
     }
 
     function addLocationUpdateRow(geojson){
-        console.log('addLocationUpdateRow: ' + geojson);
         if( geojson ){
             var updatesTbl = document.getElementById('geoTrackPushUpdatesTbl');
             var updateRow = updatesTbl.insertRow(0);
             
             var timeCell = updateRow.insertCell(0);
-            var timeProp;
-            if( geojson.properties && geojson.properties.time ){
-                timeProp = geojson.properties.time;
-            }
-            else if( geojson.properties && geojson.properties.timestamp ){
-                timeProp = geojson.properties.timestamp;
-            }
+            var timeProp = getTimestampFromGeoJson(geojson);
             if( timeProp ){
                 var time = new Date(timeProp);
-                console.log('geotrack location time: ' + timeString);
                 var timeString = dateTimeStringFromDate(time);
                 timeCell.innerHTML = '<span>' + timeString + '</span>';
+                updateRow.style.backgroundColor = colorFromTimestamp(timeProp);
+
             }
-            
-            console.log('geoTrack addLocationUpdateRow coordinates: ' + JSON.stringify(geojson));
 
             var latCell = updateRow.insertCell(1);
             latCell.innerHTML = '<span>' + geojson.geometry.coordinates[1].toFixed(4) + '</span>';
@@ -163,6 +155,47 @@ bridgeit.geoTrack('myId', callback, options);
         ajaxGet(window.echoHub + 'echofetch/geotrack-' + bridgeit.getId(), processMarkers);
     }
 
+    function getTimestampFromGeoJson(geojson){
+        var timeProp;
+        if( geojson.properties && geojson.properties.time ){
+            timeProp = geojson.properties.time;
+        }
+        else if( geojson.properties && geojson.properties.timestamp ){
+            timeProp = geojson.properties.timestamp;
+        }
+        return timeProp;
+    }
+
+    function colorFromTimestamp(time){
+        var hexString = time.toString(16).slice(-6);
+        var rgb = [];
+        //allow only lighter colors for readability
+        rgb[0] = parseInt("0x"+hexString.slice(-6,-4));
+        rgb[1] = parseInt("0x"+hexString.slice(-4,-2));
+        rgb[2] = parseInt("0x"+hexString.slice(-2));
+        
+        for( var i = 0 ; i < 3; i++ ){
+            if( rgb[i] < 128 ){ 
+                rgb[i] += 128;
+                rgb[i] = ('00'+rgb[i].toString(16)).slice(-2);
+            }
+        }
+        var color = '#';
+        for( var i = 0 ; i < 3; i++ ){
+            color += ('00'+rgb[i].toString(16)).slice(-2);
+        }
+        return color;
+    }
+
+    function randomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.round(Math.random() * 15)];
+        }
+        return color;
+    }
+
     function processMarkers(data)  {
         console.log('geoTrack processMarkers: data='+ data);
         if (data){
@@ -171,6 +204,8 @@ bridgeit.geoTrack('myId', callback, options);
             var markersPlaced = false;
             var locations = {};
             var locationKeys = [];
+            var markerIdx = -1;
+            var markerIdxLgth = len;
             for (var i = 0; i < len; i++) {
                 
                 //google maps follows english usage LatLang
@@ -186,9 +221,8 @@ bridgeit.geoTrack('myId', callback, options);
                     locationKeys.push(locationKey);
                     locations[locationKey] = [];
                 }
-                locations[locationKey].push(location);
+                var ts = getTimestampFromGeoJson(markerData[i]);  
                 
-
                 //check if provided marker is too close to existing marker
                 var existLen = geoTrackMapMarkers.length;
                 var minDistance = 100;
@@ -201,29 +235,33 @@ bridgeit.geoTrack('myId', callback, options);
                     }
                 }
                 if (minDistance < 5)  {
+                    markerIdxLgth--;
                     continue;
                 }
+                markerIdx++;
+                locations[locationKey].push(location);
+                addLocationUpdateRow(markerData[i]);
 
                 markersPlaced = true;
-                var markerColor = "#" + locationKey.substring(0,6);
-                var currMarkerColor = markerColor;
-                if( i == 0 ){
-                    currMarkerColor = 'green';
+                var markerColor = colorFromTimestamp(ts);
+                /*
+                if( markerIdx == 0 ){
+                    markerColor = '#00FF00';
                 }
-                else if( i == len-1){
-                    currMarkerColor = 'red';
-                }
+                else if( markerIdx == markerIdxLgth-1){
+                    markerColor = '#FF0000';
+                }*/
                 var marker = new google.maps.Marker({
                     position: location,
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
-                        strokeColor: currMarkerColor,
+                        strokeColor: markerColor,
                         scale: 2
                     },
                     map: geoTrackMap
                 });
-                addLocationUpdateRow(markerData[i]);
                 geoTrackMapMarkers.push(marker);
+
                 document.getElementById("trackMapDetail").innerHTML =
                     coordinates[0].toFixed(2) + "," +
                     coordinates[1].toFixed(2) + " " +
@@ -249,8 +287,9 @@ bridgeit.geoTrack('myId', callback, options);
                         strokeColor: markerColor,
                         strokeOpacity: 0.5,
                         strokeWeight: 1
-                      });
-                      path.setMap(geoTrackMap);
+                    });
+                    path.setMap(geoTrackMap);
+
                 }
                 
             }
