@@ -80,9 +80,17 @@ function hasClassList(){
         );
 }
 
-function setMinContentHeight(){
+function setMinContentHeight(event){
+    if( navigator.userAgent.toLowerCase().indexOf('android') > -1 ){
+        if( event && event.type == 'resize'){
+            return;
+        }
+    }
+    for( key in event ){
+        console.log('setMinContentHeight: ' + key + '=' + event[key]);
+    }
     var bufferHeight = 
-        (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ? 50 : 80);
+        (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ? 50 : 70);
     var minContentHeight = $(window).height() - bufferHeight;
     $("div[data-role='content']").each(function(idx, elem){
         elem.style.minHeight = '' + minContentHeight + 'px';
