@@ -489,3 +489,6 @@ span.ellipsis{
     color: #DD5734;
     float: right;
 }
+.gm-sm {
+    display: none !important;
+}
