@@ -30,7 +30,7 @@ bridgeit.geoTrack('myId', callback, options);
         </div>
     </fieldset>
     
-    <a id="startTrackingBtn" type="button" class="btn"
+    <a id="startTrackingBtn" type="button" class="btn" style="display: none"
         onclick="bridgeit.geoTrack('tracker','onAfterTrackingStarted', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), strategy:'significant',duration:0.3,_jguid:bridgeit.getId()});">Start Tracking</a>
     <a id="stopTrackingBtn" type="button" class="btn" style="display: none"
         onclick="bridgeit.geoTrack('tracker','onAfterTrackingStopped', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), strategy:'stop',_jguid:bridgeit.getId()});">
@@ -65,6 +65,28 @@ bridgeit.geoTrack('myId', callback, options);
     window.geoTracking = false;
     
     var geoPushReady;
+
+    function isGeoTrackRunning(){
+        var result = false;
+        if( window.localStorage && localStorage.getItem('bridgeit.geoTrackRunning') == 'true'){
+            result = true;
+        }
+        return result;
+    }
+
+    function setGeoTrackRunning(running){
+        if( window.localStorage ){
+            localStorage.setItem('bridgeit.geoTrackRunning', running);
+        }
+        refreshGeoTrackButtons(running);
+    }
+
+    function refreshGeoTrackButtons(running){
+        document.getElementById('startTrackingBtn').style.display = running ? 'none' : '';
+        document.getElementById('stopTrackingBtn').style.display = running ? '' : 'none';
+    }
+
+    refreshGeoTrackButtons(isGeoTrackRunning());
     
     if (!geoPushReady)  {
         bridgeit.usePushService( window.pushHub, window.apiKey);
@@ -121,14 +143,12 @@ bridgeit.geoTrack('myId', callback, options);
 
     function onAfterTrackingStarted()  {
         console.log('geoTrack onAfterTrackingStarted');
-        document.getElementById('startTrackingBtn').style.display = 'none';
-        document.getElementById('stopTrackingBtn').style.display = '';
+        setGeoTrackRunning(true);
     }
 
     function onAfterTrackingStopped(){
         console.log('geoTrack onAfterTrackingStopped');
-        document.getElementById('startTrackingBtn').style.display = '';
-        document.getElementById('stopTrackingBtn').style.display = 'none';   
+        setGeoTrackRunning(false);
     }
 
     function geoTrackVisible()  {
