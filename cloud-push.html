@@ -86,8 +86,8 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
 
     function getStoredNotifications()  {
         var storedPush = [];
-        if (sessionStorage) {
-            var serializedPush = sessionStorage[PUSH_STORE_KEY];
+        if (localStorage) {
+            var serializedPush = localStorage[PUSH_STORE_KEY];
             if (serializedPush)  {
                 storedPush = JSON.parse(serializedPush);
             }
@@ -99,14 +99,14 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
     }
 
     function storeNotification(text)  {
-        if (sessionStorage) {
+        if (localStorage) {
             var storedPush = getStoredNotifications();
             if (storedPush.length > 3)  {
                 //remove oldest entries, but keep 3
                 storedPush.splice(0, storedPush.length - 3);
             }
             storedPush.push(text);
-            sessionStorage[PUSH_STORE_KEY] = JSON.stringify(storedPush);
+            localStorage[PUSH_STORE_KEY] = JSON.stringify(storedPush);
         }
     }
 
