@@ -33,6 +33,8 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
     <fieldset id="notifications">
     </fieldset>
     <script type="text/javascript">
+    var PUSH_STORE_KEY = 'bridgeit.pushes';
+    restoreNotifications();
 
     if (bridgeit.isRegistered())  {
         document.getElementById('regBtn').style.display = 'none';
@@ -52,6 +54,19 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
         }
     }
 
+    function restoreNotifications()  {
+        var storedPush = getStoredNotifications();
+        if (!storedPush)  {
+            return;
+        }
+        var outDiv = document.getElementById("notifications");
+        for (var i = 0 ; i < storedPush.length ; i++)  {
+            var row = document.createElement("div");
+            row.innerHTML = storedPush[i];
+            outDiv.insertBefore(row, outDiv.firstChild);
+        }
+    }
+
     function handlePush()  {
         var now = new Date();
         var outDiv = document.getElementById("notifications");
@@ -59,13 +74,40 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
         if( hasClassList() )
             row.classList.add('hl');
         outDiv.insertBefore(row, outDiv.firstChild);
-            row.innerHTML =
-            "<b>You were notified:</b> " + simpleTime();
+        var rowMarkup = "<b>You were notified:</b> " + simpleTime();
+        storeNotification(rowMarkup);
+        row.innerHTML = rowMarkup;
         window.setTimeout(function() {
             if( hasClassList() )
                 row.classList.remove('hl');
         }, 3000);
         updatePushButtonText('Push in 10 seconds ...');
+    }
+
+    function getStoredNotifications()  {
+        var storedPush = [];
+        if (sessionStorage) {
+            var serializedPush = sessionStorage[PUSH_STORE_KEY];
+            if (serializedPush)  {
+                storedPush = JSON.parse(serializedPush);
+            }
+            if (!storedPush) {
+                storedPush = [];
+            }
+        }
+        return storedPush;
+    }
+
+    function storeNotification(text)  {
+        if (sessionStorage) {
+            var storedPush = getStoredNotifications();
+            if (storedPush.length > 3)  {
+                //remove oldest entries, but keep 3
+                storedPush.splice(0, storedPush.length - 3);
+            }
+            storedPush.push(text);
+            sessionStorage[PUSH_STORE_KEY] = JSON.stringify(storedPush);
+        }
     }
 
     function updatePushButtonText(text){
