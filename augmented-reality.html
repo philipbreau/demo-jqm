@@ -35,14 +35,6 @@ bridgeit.augmentedReality(
         }
     }
 
-    function validateMarkersPlaced(){
-        if( markerCounter == 0 ){
-            alert('First, tap on the map a few times around your location to add some markers');
-            return false;
-        }
-        return true;
-    }
-
     var markerCounter = 0;
 
     $(document).bind('pagechange', function() {
@@ -116,7 +108,7 @@ bridgeit.augmentedReality(
         <div class="row"><p class="normalText">Tap the map to add location markers, and then view them in the Augmented Reality view, by clicking on the 'Enter Augmented Reality..' button.</p></div>
     </fieldset>
 
-    <a type="button" class="btn" id="aug" class="overbutton" onclick="if( validateMarkersPlaced() ) bridgeit.augmentedReality('_loc','onReturnFromAugmentedReality', {postURL:(window.echoHub + 'echo/'), 'locations': locations});">Enter Augmented Reality ... </a>
+    <a type="button" class="btn" id="aug" class="overbutton" onclick="bridgeit.augmentedReality('_loc','onReturnFromAugmentedReality', {postURL:(window.echoHub + 'echo/'), 'locations': locations});">Enter Augmented Reality ... </a>
 
     <div id="map-canvas" style="margin: 0 0 20px 0;height:380px;"></div>
 
