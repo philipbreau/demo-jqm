@@ -22,6 +22,18 @@ bridgeit.augmentedReality(
     </fieldset>
                     
     <script type="text/javascript">
+    var supportAcknowledged = false;
+
+    function checkSupported()  {
+        if (bridgeit.isAndroid())  {
+            if (supportAcknowledged)  {
+                return true;
+            }
+            alert("Augmented Reality is under construction on Android. Feel free to experiment with it and send us your feedback.")
+            supportAcknowledged = true;
+        }
+        return true;
+    }
 
     function onReturnFromAugmentedReality(event)  {
         var text = event.value;
@@ -108,7 +120,7 @@ bridgeit.augmentedReality(
         <div class="row"><p class="normalText">Tap the map to add location markers, and then view them in the Augmented Reality view, by clicking on the 'Enter Augmented Reality..' button.</p></div>
     </fieldset>
 
-    <a type="button" class="btn" id="aug" class="overbutton" onclick="bridgeit.augmentedReality('_loc','onReturnFromAugmentedReality', {postURL:(window.echoHub + 'echo/'), 'locations': locations});">Enter Augmented Reality ... </a>
+    <a type="button" class="btn" id="aug" class="overbutton" onclick="if (checkSupported()) {bridgeit.augmentedReality('_loc','onReturnFromAugmentedReality', {postURL:(window.echoHub + 'echo/'), 'locations': locations});}">Enter Augmented Reality ... </a>
 
     <div id="map-canvas" style="margin: 0 0 20px 0;height:380px;"></div>
 
