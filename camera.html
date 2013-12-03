@@ -63,11 +63,10 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
             row.setAttribute('class','row');
             var elem = document.getElementById('images');
             elem.insertBefore(row,elem.firstChild);
-            row.innerHTML = "<a id='photoLink' class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadPhoto('" + photo + "');\">Load Photo</a>";
+            row.innerHTML = "<a class='btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c' onclick=\"loadPhoto(this,'" + photo + "');\">Load Photo</a>";
         }
     }
-    function loadPhoto(url){
-        var photoLink = document.getElementById('photoLink');
+    function loadPhoto(photoLink, url){
         if( photoLink ){
             var parent = photoLink.parentNode;
             parent.removeChild(photoLink);
