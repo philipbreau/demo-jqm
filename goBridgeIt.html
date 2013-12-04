@@ -19,6 +19,7 @@
             }
 
             callbackClause = "c=" + escape("bridgeit.handleCloudPush");
+            callbackClause += "&seq=" + (new Date()).getTime();
 
             var hashClause = "";
             if (!!hashSubClause || !!callbackClause)  {
