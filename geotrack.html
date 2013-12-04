@@ -310,7 +310,7 @@ bridgeit.geoTrack('myId', callback, options);
                 document.getElementById("trackMapDetail").innerHTML =
                     coordinates[0].toFixed(2) + "," +
                     coordinates[1].toFixed(2) + " " +
-                    coordinates[2].toFixed(2) + "m  ";
+                    (coordinates[2] ? ( coordinates[2].toFixed(2) + "m  " ) : "");
             }
 
             if (markersPlaced)  {
