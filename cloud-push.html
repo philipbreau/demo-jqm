@@ -68,8 +68,17 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
         }
     }
 
+    var lastPushTimeStamp = 0;
     function handlePush()  {
         var now = new Date();
+        //an Ajax Push may be delivered but unacknowledged
+        //leading to duplication http://jira.icesoft.org/browse/PUSH-301
+        if (now.getTime() - lastPushTimeStamp < 600)  {
+            console.log("Debouncing duplicate push: " + 
+                    (now.getTime() - lastPushTimeStamp));
+            return;
+        }
+        lastPushTimeStamp = now.getTime();
         var outDiv = document.getElementById("notifications");
         var row = document.createElement("div");
         if( hasClassList() )
