@@ -86,9 +86,6 @@ function setMinContentHeight(event){
             return;
         }
     }
-    for( key in event ){
-        console.log('setMinContentHeight: ' + key + '=' + event[key]);
-    }
     var bufferHeight = 
         (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ? 50 : 70);
     var minContentHeight = $(window).height() - bufferHeight;
