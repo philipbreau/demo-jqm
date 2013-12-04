@@ -43,7 +43,8 @@ bridgeit.push('myPushGroup', {subject: 'subject', detail: 'detail'});
     function delayedPush()  {
         bridgeit.push( bridgeit.getId(),
             {subject:'BridgeIt Cloud Push',
-            detail:'You have been notified.', delay:10000} );
+            detail:'You have been notified.', delay:10000,
+            url: bridgeit.cloudPushReturnURL()} );
         updatePushButtonText('Waiting for push...');
     }
 
