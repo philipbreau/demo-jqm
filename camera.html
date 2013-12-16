@@ -22,7 +22,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="cameraBtn" type="button" class="btn"
-        onclick="bridgeit.camera('cameraBtn','onAfterPhotoCapture', {postURL:window.echoHub + 'camera-upload'});">Take a Photo</a>
+        onclick="bridgeit.camera('cameraBtn','onAfterPhotoCapture', {postURL:window.echoHub + 'blob'});">Take a Photo</a>
         
     <fieldset id="currentPhoto">
         <div class="row">
@@ -57,7 +57,7 @@ bridgeit.camera( 'myId', callback, {postURL: '/upload'});
             document.getElementById("currentPhotoDesc").innerHTML = "Last photo taken at " + new Date();
         }
         if (event.response)  {
-            var photo = event.response;
+            var photo = JSON.parse(event.response);
             console.log('response: ' + photo);
             var row = document.createElement('div');
             row.setAttribute('class','row');

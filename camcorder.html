@@ -22,7 +22,7 @@ bridgeit.camcorder('myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="camcorderBtn" type="button" class="btn"
-        onclick="bridgeit.camcorder('camcorderBtn','onAfterVideoCapture', {postURL: window.echoHub + 'video-upload'});">Record a Video</a>
+        onclick="bridgeit.camcorder('camcorderBtn','onAfterVideoCapture', {postURL: window.echoHub + 'blob'});">Record a Video</a>
         
     <fieldset id="videoThumbnailField" style="display:none">
         <div class="row">
@@ -62,7 +62,7 @@ bridgeit.camcorder('myId', callback, {postURL: '/upload'});
         }
         console.log('handleVideo response: ' + event.response);
         if (event.response)  {
-            var video = event.response;
+            var video = JSON.parse(event.response);
             var row = document.createElement('div');
             row.setAttribute('class','row');
             var elem = document.getElementById('videos');

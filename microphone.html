@@ -22,7 +22,7 @@ bridgeit.microphone('myId', callback, {postURL: '/upload'});
     </fieldset>
     
     <a id="micBtn" type="button" class="btn"
-        onclick="bridgeit.microphone('micBtn','onAfterAudioCapture', {postURL: window.echoHub + 'audio-upload'});">Record Audio</a>
+        onclick="bridgeit.microphone('micBtn','onAfterAudioCapture', {postURL: window.echoHub + 'blob'});">Record Audio</a>
         
     <fieldset>
         <div class="row"></div>
@@ -54,7 +54,7 @@ bridgeit.microphone('myId', callback, {postURL: '/upload'});
             console.log('onAfterAudioCapture: ' + event);
             var text = event.value;
             if (event.response)  {
-                var audioSrc = event.response;
+                var audioSrc = JSON.parse(event.response);
                 console.log('response audio src: ' + audioSrc);
 
                 var row = document.createElement('div');
