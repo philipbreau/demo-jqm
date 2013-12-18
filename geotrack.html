@@ -31,9 +31,9 @@ bridgeit.geoTrack('myId', callback, options);
     </fieldset>
     
     <a id="startTrackingBtn" type="button" class="btn" style="display: none"
-        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStarted', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), strategy:'significant',duration:0.3,_jguid:bridgeit.getId()});">Start Tracking</a>
+        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStarted', {postURL: window.echoHub + 'list/geotrack-' + bridgeit.getId(), strategy:'significant',duration:0.3,_jguid:bridgeit.getId()});">Start Tracking</a>
     <a id="stopTrackingBtn" type="button" class="btn" style="display: none"
-        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStopped', {postURL: window.echoHub + 'echoput/geotrack-' + bridgeit.getId(), strategy:'stop',_jguid:bridgeit.getId()});">
+        onclick="bridgeit.geoTrack('tracker','onAfterTrackingStopped', {postURL: window.echoHub + 'list/geotrack-' + bridgeit.getId(), strategy:'stop',_jguid:bridgeit.getId()});">
         Stop Tracking
         <i class="icon-gear icon-spin geotracking"></i>
     </a>
@@ -183,7 +183,7 @@ bridgeit.geoTrack('myId', callback, options);
 
     function updateMarkers()  {
         console.log('geoTrack updateMarkers');
-        ajaxGet(window.echoHub + 'echofetch/geotrack-' + bridgeit.getId(), processMarkers);
+        ajaxGet(window.echoHub + 'list/geotrack-' + bridgeit.getId(), processMarkers);
     }
 
     function getTimestampFromGeoJson(geojson){
