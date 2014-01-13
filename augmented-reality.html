@@ -36,8 +36,13 @@ bridgeit.augmentedReality(
     }
 
     function onReturnFromAugmentedReality(event)  {
-        var text = event.value;
-        if (event.response)  {
+        var selection = event.value;
+        if (!!selection)  {
+            console.log("AR selected " + selection);
+            document.getElementById("selected")
+                    .setAttribute("src",
+                    locations[selection].split(",")[4]);
+       } else if (event.response)  {
             var len = "Aug".length;
             var responseLoc = "" + JSON.parse(event.response)["_loc"][0];
             console.log("AR selected " + responseLoc);
