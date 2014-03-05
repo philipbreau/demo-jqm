@@ -24,78 +24,87 @@ title: Mobile Demo
                       document.getElementById('splash').style.display = 'block';
                   } 
                }
+               function onAfterAskDemo(evt){
+                  if( evt.value )
+                    var demo = evt.value.replace(' ','');
+                    console.log('trying nav to ' + demo)
+                    $('#'+demo).click();
+               }
                </script>
         </div>
     </div>
     <ul data-role="listview" data-inset="false" id="menu" class="menu" id="menu">
         <li>
-          <a href="camera.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+            <a onclick="bridgeit.voice('1', 'onAfterAskDemo', {question: 'Hey handsome, what demo would you like to see?'});">Tell BridgeIt where you'd like to go</a>
+        </li>
+        <li>
+          <a href="camera.html" id="camera" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-camera"></i>Camera
           </a><i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="camcorder.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="camcorder.html" id="camcorder" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-facetime-video"></i>Camcorder
           </a><i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="scan.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="scan.html" id="scan" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-qrcode"></i>Scan
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="microphone.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="microphone.html" id="microphone" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-microphone"></i>Microphone
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="contact-list.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="contact-list.html" id="contactlist" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-calendar-empty"></i>
             <i style="font-style:normal;position:absolute;margin-left: -32px;font-size: 9px;margin-top: 7px;">@</i>Contact List
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="geotrack.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="geotrack.html" id="geotrack" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-location-arrow"></i>GeoTrack
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="augmented-reality.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="augmented-reality.html" id="augmentedreality" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="augmented-reality-icon"></i>Augmented Reality
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="sms.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="sms.html" id="sms" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-comment"></i>SMS
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="cloud-push.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="cloud-push.html" id="cloudpush" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-cloud-download"></i>Cloud Push
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="voice.html" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="voice.html" id="voice" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-bullhorn"></i>Voice
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="http://bridgeit.github.io/bridgeit.js/docs/" data-rel="external" data-ajax="false"
+          <a href="http://bridgeit.github.io/bridgeit.js/docs/" id="docs" data-rel="external" data-ajax="false"
             target="_blank">
             <i class="icon-book"></i>Documentation
           </a>
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="http://bridgeit.mobi/forum/" data-rel="external" data-ajax="false" target="_blank">
+          <a href="http://bridgeit.mobi/forum/" id="forums" data-rel="external" data-ajax="false" target="_blank">
             <i class="icon-comments-alt"></i>Forums
           </a>
           <i class="icon-chevron-right"></i>
