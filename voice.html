@@ -1,0 +1,43 @@
+---
+id: camera
+layout: demo
+title: Camera
+---
+<div>
+    <h2>Voice</h2>
+    <fieldset class="desc">
+        <div class="row"><p class="normalText">The voice command does something...</p></div>
+        <div class="row shown-xs">
+{% highlight javascript %}
+bridgeit.voice( 'myId', 
+  callback, 
+  {question: 'Why is the sky blue?'});
+{% endhighlight %}
+        </div>
+        <div class="row hidden-xs">
+{% highlight javascript %}
+bridgeit.voice( 'myId', callback, {question: 'Why is the sky blue?'});
+{% endhighlight %}
+        </div>
+    </fieldset>
+    
+    <a id="cameraBtn" type="button" class="btn"
+        onclick="bridgeit.voice('voiceBtn','onAfterVoice', {question:'Why is the sky blue?'});">Question: Why is the sky blue?</a>
+        
+    <fieldset id="answers">
+    </fieldset>
+    <script type="text/javascript">
+    function onAfterVoice(event)  {
+        console.log('onAfterVoice: ' + JSON.stringify(event));
+        var answer = event.answer;
+        if (answer)  {
+            var row = document.createElement('div');
+            row.setAttribute('class','row');
+            var elem = document.getElementById('answers');
+            elem.insertBefore(row,elem.firstChild);
+            row.innerHTML = answer;
+        }
+    }
+    </script>
+</div>
+
