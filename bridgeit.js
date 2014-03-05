@@ -1389,7 +1389,7 @@ if (!window.console) {
     var wp8 = b.isWindowsPhone8();
     var iPhone = b.isIPhone();
 
-    var commands = ['camera','camcorder','microphone','fetchContacts','aug','push','scan','geospy','sms','beacons', 'voice'];
+    b.commands = ['camera','camcorder','microphone','fetchContacts','aug','push','scan','geospy','sms','beacons', 'voice'];
     var fullySupported = [true, true, true, true, true, true, true, true, true, true, true];
     
     var supportMatrix = {
@@ -1434,23 +1434,23 @@ if (!window.console) {
             }
         }
         else if( wp8 ){
-            return supportMatrix['wp8'][commands.indexOf(command)];
+            return supportMatrix['wp8'][b.commands.indexOf(command)];
         }
         else if( iOS ){
             if( iPhone ){
                 if( iOS6 ){
-                    return supportMatrix['iPhone']['6'][commands.indexOf(command)];
+                    return supportMatrix['iPhone']['6'][b.commands.indexOf(command)];
                 }
                 else if( iOS7 ){ 
-                    return supportMatrix['iPhone']['7'][commands.indexOf(command)];
+                    return supportMatrix['iPhone']['7'][b.commands.indexOf(command)];
                 }
             }
             else {
                 if( iOS6 ){
-                    return supportMatrix['iPad-iPod']['6'][commands.indexOf(command)];
+                    return supportMatrix['iPad-iPod']['6'][b.commands.indexOf(command)];
                 }
                 else if( iOS7 ){ 
-                    return supportMatrix['iPad-iPod']['7'][commands.indexOf(command)];
+                    return supportMatrix['iPad-iPod']['7'][b.commands.indexOf(command)];
                 }
             }
         }

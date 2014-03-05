@@ -25,17 +25,49 @@ title: Mobile Demo
                   } 
                }
                function onAfterAskDemo(evt){
-                  if( evt.value )
-                    var demo = evt.value.replace(' ','');
-                    console.log('trying nav to ' + demo)
-                    $('#'+demo).click();
-               }
+                    var commandAliases = ['contactlist', 'photo', 'picture', 'movie', 
+                        'recording', 'video', 'contact', 'list', 'address', 'person', 'email', 'geo'];
+                    if( evt.value ){
+                        var demo = evt.value.toLowerCase();
+                        if( !bridgeit.commands.some( function (el){ return demo.indexOf(el) > -1  }) 
+                            && !commandAliases.some( function(el){ return demo.indexOf(el) > -1} ) ){
+                            bridgeit.voice('1', 'onAfterAskDemo', {question: "Sorry, I didn't catch that"});
+                        }
+                        else{
+                            
+                            $('#voice-command').html('...'+demo);
+                            var fired = false;
+                            bridgeit.commands.forEach( function(el){ 
+                                if( demo.indexOf(el) > -1 ){ 
+                                    console.log('trying nav to ' + el);
+                                    $('#'+el.toLowerCase()).click();
+                                    fired = true;
+                                    return false;
+                                }
+                            });
+                            if( !fired ){
+                                if( ['photo','picture'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#camera').click();
+                                }
+                                else if( ['video','movie','recording'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#camcorder').click();
+                                }
+                                else if( ['contact','list','address','person','email'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#fetchcontact').click();
+                                }
+                                else if( ['geo','address'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#geotrack').click();
+                                }
+                            }
+                        }       
+                    }
+                }
                </script>
         </div>
     </div>
     <ul data-role="listview" data-inset="false" id="menu" class="menu" id="menu">
         <li>
-            <a onclick="bridgeit.voice('1', 'onAfterAskDemo', {question: 'Hey handsome, what demo would you like to see?'});">Tell BridgeIt where you'd like to go</a>
+            <a onclick="bridgeit.voice('1', 'onAfterAskDemo', {question: 'Hey handsome, what demo would you like to see?'});">Tell BridgeIt where you'd like to go <span id="voice-command"></span></a>
         </li>
         <li>
           <a href="camera.html" id="camera" data-transition="slide" onclick="$('.splash').fadeOut();">
@@ -60,7 +92,7 @@ title: Mobile Demo
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="contact-list.html" id="contactlist" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="contact-list.html" id="fetchcontact" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-calendar-empty"></i>
             <i style="font-style:normal;position:absolute;margin-left: -32px;font-size: 9px;margin-top: 7px;">@</i>Contact List
           </a>
