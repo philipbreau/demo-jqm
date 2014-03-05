@@ -29,9 +29,9 @@ title: Mobile Demo
                         'movie','recording','video', 
                         'contact','list','address','person','email',
                         'geo','address',
-                        'reality','augment',
+                        'aug','augmented reality','reality','augment',
                         'text','message',
-                        'push','realtime',
+                        'cloud push','push','realtime',
                         'talk','speech',
                         'doc','api',
                         'forum','question'];
@@ -68,13 +68,13 @@ title: Mobile Demo
                                     $('#geotrack').click();
                                 }
                                 else if( ['reality','augment'].some( function(el){ return demo.indexOf(el) > -1; } )){
-                                    $('#augmentedreality').click();
+                                    $('#aug').click();
                                 }
                                 else if( ['text','message'].some( function(el){ return demo.indexOf(el) > -1; } )){
                                     $('#sms').click();
                                 }
-                                else if( ['push','realtime'].some( function(el){ return demo.indexOf(el) > -1; } )){
-                                    $('#cloudpush').click();
+                                else if( ['cloud','realtime'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#push').click();
                                 }
                                 else if( ['talk','speech'].some( function(el){ return demo.indexOf(el) > -1; } )){
                                     $('#geotrack').click();
@@ -133,7 +133,7 @@ title: Mobile Demo
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="augmented-reality.html" id="augmentedreality" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="augmented-reality.html" id="aug" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="augmented-reality-icon"></i>Augmented Reality
           </a>
           <i class="icon-chevron-right"></i>
@@ -145,7 +145,7 @@ title: Mobile Demo
           <i class="icon-chevron-right"></i>
         </li>
         <li>
-          <a href="cloud-push.html" id="cloudpush" data-transition="slide" onclick="$('.splash').fadeOut();">
+          <a href="cloud-push.html" id="push" data-transition="slide" onclick="$('.splash').fadeOut();">
             <i class="icon-cloud-download"></i>Cloud Push
           </a>
           <i class="icon-chevron-right"></i>
