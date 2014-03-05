@@ -29,9 +29,10 @@ title: Mobile Demo
                         'recording', 'video', 'contact', 'list', 'address', 'person', 'email', 'geo'];
                     if( evt.value ){
                         var demo = evt.value.toLowerCase();
+                        if( demo.indexOf('quit') > -1 ) return;
                         if( !bridgeit.commands.some( function (el){ return demo.indexOf(el) > -1  }) 
                             && !commandAliases.some( function(el){ return demo.indexOf(el) > -1} ) ){
-                            bridgeit.voice('1', 'onAfterAskDemo', {question: "Sorry, I didn't catch that"});
+                            bridgeit.voice('1', 'onAfterAskDemo', {question: "Sorry, I didn't catch that. You can just say quit to go back."});
                         }
                         else{
                             
