@@ -25,8 +25,16 @@ title: Mobile Demo
                   } 
                }
                function onAfterAskDemo(evt){
-                    var commandAliases = ['contactlist', 'photo', 'picture', 'movie', 
-                        'recording', 'video', 'contact', 'list', 'address', 'person', 'email', 'geo'];
+                    var commandAliases = ['photo','picture', 
+                        'movie','recording','video', 
+                        'contact','list','address','person','email',
+                        'geo','address',
+                        'reality','augment',
+                        'text','message',
+                        'push','realtime',
+                        'talk','speech',
+                        'doc','api',
+                        'forum','question'];
                     if( evt.value ){
                         var demo = evt.value.toLowerCase();
                         if( demo.indexOf('quit') > -1 ) return;
@@ -58,6 +66,24 @@ title: Mobile Demo
                                 }
                                 else if( ['geo','address'].some( function(el){ return demo.indexOf(el) > -1; } )){
                                     $('#geotrack').click();
+                                }
+                                else if( ['reality','augment'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#augmentedreality').click();
+                                }
+                                else if( ['text','message'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#sms').click();
+                                }
+                                else if( ['push','realtime'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#cloudpush').click();
+                                }
+                                else if( ['talk','speech'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#geotrack').click();
+                                }
+                                else if( ['doc','api'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#docs').click();
+                                }
+                                else if( ['forum','question'].some( function(el){ return demo.indexOf(el) > -1; } )){
+                                    $('#forums').click();
                                 }
                             }
                         }       
