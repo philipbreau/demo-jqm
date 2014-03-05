@@ -68,7 +68,8 @@ title: Mobile Demo
     </div>
     <ul data-role="listview" data-inset="false" id="menu" class="menu" id="menu">
         <li>
-            <a onclick="bridgeit.voice('1', 'onAfterAskDemo', {question: 'Hey handsome, what demo would you like to see?'});">Tell BridgeIt where you'd like to go <span id="voice-command"></span></a>
+            <a style="background-color: #FFF8AD" 
+                onclick="bridgeit.voice('1', 'onAfterAskDemo', {question: 'Hey handsome, what demo would you like to see?'});">Click to tell BridgeIt where you'd like to go <span id="voice-command"></span></a>
         </li>
         <li>
           <a href="camera.html" id="camera" data-transition="slide" onclick="$('.splash').fadeOut();">
